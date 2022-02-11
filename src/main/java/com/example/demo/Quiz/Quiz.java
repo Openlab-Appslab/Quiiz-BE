@@ -16,4 +16,16 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    private String question;
+    private String keyAnswer;
+    private String answer1;
+    private String answer2;
+
+    public Quiz(String question, String keyAnswer, String answer1, String answer2){
+        this.question = question;
+        this.keyAnswer = keyAnswer;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+    }
 }
