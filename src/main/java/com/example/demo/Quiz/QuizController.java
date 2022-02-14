@@ -2,9 +2,7 @@ package com.example.demo.Quiz;
 
 import com.example.demo.Quiz.Model.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping
@@ -14,9 +12,13 @@ public class QuizController {
     QuizService quizService;
 
     @GetMapping("/quiz")
-    public String WriteQuiz(){
+    public Quiz writeQuiz(){
         Quiz quiz = new Quiz("dnesny den", "piatok", "pondelok", "stvrtok");
         quizService.saveQuiz(quiz);
-        return quiz.getKeyAnswer();
+        return quiz;
+    }
+    @PostMapping("/quiz/question")
+    public void postQuiz(@RequestBody Quiz quiz){
+        quizService.saveQuiz(quiz);
     }
 }
