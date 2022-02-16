@@ -5,10 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping
 public class QuizController {
+
+    Random rand = new Random();
 
     @Autowired
     QuizService quizService;
@@ -24,10 +27,18 @@ public class QuizController {
         quizService.saveQuiz(quiz);
     }
 
-    @RequestMapping("/quiz/get")
-    public List<Quiz> getQuiz(){
+    @RequestMapping("/quizzes/get")
+    public List<Quiz> getQuizzes(){
         List<Quiz> quizList;
         quizList = quizService.readQuiz(quiz);
         return quizList;
+    }
+
+    @RequestMapping("/quiz/get")
+    public Quiz getQuiz(){
+        List<Quiz> quizList;
+        quizList = quizService.readQuiz(quiz);
+        int randQuiz = rand.nextInt(quizList.size());
+        return quizList.get(randQuiz);
     }
 }
