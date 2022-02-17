@@ -18,7 +18,7 @@ public class QuizController {
     Quiz quiz;
     @GetMapping("/quiz/add")
     public Quiz writeQuiz(){
-        Quiz createdQuiz = new Quiz("dnesny den", "piatok", "pondelok", "stvrtok");
+        Quiz createdQuiz = new Quiz("Programovanie");
         quizService.saveQuiz(createdQuiz);
         return createdQuiz;
     }
