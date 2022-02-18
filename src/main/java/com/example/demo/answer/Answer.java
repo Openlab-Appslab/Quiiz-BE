@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -22,11 +20,11 @@ public class Answer {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    private String correctAnswer;
-    private String incorrectAnswer;
+    private String content;
+    private boolean correct;
 
-    public Answer(String correctAnswer, String incorrectAnswer){
-        this.correctAnswer = correctAnswer;
-        this.incorrectAnswer = incorrectAnswer;
+    public Answer(String content, boolean correct){
+        this.content = content;
+        this.correct = correct;
     }
 }

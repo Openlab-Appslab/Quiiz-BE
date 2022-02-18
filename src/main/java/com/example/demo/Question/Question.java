@@ -21,7 +21,10 @@ public class Question implements java.io.Serializable{
     private int id;
 
     private String content;
-    //private Set<Answer> answers = new HashSet<Answer>(0);
+
+    @OneToMany(cascade =  CascadeType.ALL)
+    @JoinColumn(name = "question_id")
+    private List<Answer> answerList = new ArrayList<>();
 
     public Question(String content){
         this.content = content;
@@ -31,8 +34,4 @@ public class Question implements java.io.Serializable{
         this.content = content;
         this.answerList = answerList;
     }
-
-    @OneToMany(cascade =  CascadeType.ALL)
-    @JoinColumn(name = "question_id")
-    private List<Answer> answerList = new ArrayList<>();
 }

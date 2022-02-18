@@ -1,5 +1,6 @@
 package com.example.demo.Quiz;
 
+import com.example.demo.Question.Model.QuestionService;
 import com.example.demo.Quiz.Model.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,10 @@ public class QuizController {
 
     @Autowired
     QuizService quizService;
+
+    @Autowired
+    QuestionService questionService;
+
     Quiz quiz;
     @GetMapping("/quiz/add")
     public Quiz writeQuiz(){
