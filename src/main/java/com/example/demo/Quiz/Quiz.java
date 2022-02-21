@@ -1,13 +1,17 @@
 package com.example.demo.Quiz;
 
+import com.example.demo.Question.Question;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.bytebuddy.matcher.FilterableList;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -20,9 +24,15 @@ public class Quiz {
 
     private String name;
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "quiz_id")
+    private List<Question> questionList = new ArrayList<>();
 
-    public Quiz(String name){
+    public Quiz(String name, List<Question> questionList){
         this.name = name;
-
+        this.questionList = questionList;
     }
 }

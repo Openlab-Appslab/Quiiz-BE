@@ -1,5 +1,6 @@
 package com.example.demo.Question;
 
+import com.example.demo.Quiz.Quiz;
 import com.example.demo.answer.Answer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,10 @@ public class Question implements java.io.Serializable{
     private int id;
 
     private String content;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "quiz_id")
+    private Quiz quiz;
 
     @OneToMany(cascade =  CascadeType.ALL)
     @JoinColumn(name = "question_id")
