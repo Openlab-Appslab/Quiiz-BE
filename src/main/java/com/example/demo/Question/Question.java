@@ -23,9 +23,9 @@ public class Question implements java.io.Serializable{
 
     private String content;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "quiz_id")
+//    private Quiz quiz;
 
     @OneToMany(cascade =  CascadeType.ALL)
     @JoinColumn(name = "question_id")
