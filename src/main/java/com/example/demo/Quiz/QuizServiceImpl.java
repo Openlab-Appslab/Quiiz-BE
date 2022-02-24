@@ -1,5 +1,6 @@
 package com.example.demo.Quiz;
 
+import com.example.demo.Question.Question;
 import com.example.demo.Quiz.Model.QuizRepository;
 import com.example.demo.Quiz.Model.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class QuizServiceImpl implements QuizService {
         quizRepository.findAll()
         .forEach(quizzes::add);
         return  quizzes;
+    }
+
+    @Override
+    public Iterable<Quiz> findAll() {
+        return quizRepository.findAll();
     }
 
 }

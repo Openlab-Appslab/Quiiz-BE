@@ -30,9 +30,4 @@ public class Quiz {
     )
     @JoinColumn(name = "quiz_id")
     private List<Question> questionList = new ArrayList<>();
-
-    public Quiz(String name, List<Question> questionList){
-        this.name = name;
-        this.questionList = questionList;
-    }
 }
