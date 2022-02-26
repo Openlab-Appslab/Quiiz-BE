@@ -22,11 +22,7 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public List<Answer> readAnswers(List<Answer> answerList) {
-
-        List<Answer> answers = new ArrayList<>();
-        answerRepository.findAll()
-                .forEach(answers::add);
-        return  answers;
+    public Iterable<Answer> findAll() {
+        return answerRepository.findAll();
     }
 }

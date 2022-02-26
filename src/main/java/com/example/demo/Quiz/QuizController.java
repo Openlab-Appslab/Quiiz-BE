@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.jws.WebParam;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping
 public class QuizController {
 
-    //Random rand = new Random();
+    Random rand = new Random();
 
     @Autowired
     QuizService quizService;
