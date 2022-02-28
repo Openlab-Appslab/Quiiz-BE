@@ -28,12 +28,13 @@ public class AnswerContoller {
     private AnswerDto convertToDto(Answer answer){
         AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
         answerDto.setContent(answer.getContent());
+        answerDto.setSent(answer.isSent());
         return answerDto;
     }
 
     @GetMapping("/get/answers/random")
     @ResponseBody
-    public List<AnswerDto> getAnswers(){
+    public List<AnswerDto> getRandomAnswers(){
         int correctAns = 0;
         int incorrectAns = 0;
 
@@ -54,6 +55,39 @@ public class AnswerContoller {
             }
         }while(answersToSend.size() < 3);
 
+        return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+    int chooseAns = 0;
+    @GetMapping("/get/answers/byDifficulty")
+    @ResponseBody
+    public List<AnswerDto> getAnswersByDifficulty(){
+        int correctAns = 0;
+        int incorrectAns = 0;
+
+
+        List<Answer> answersToSend = new ArrayList<>();
+
+        List<Answer> answerList = new ArrayList<>();
+        Iterable<Answer> answers = answerService.findAll();
+        answers.forEach(answerList::add);
+
+        do {
+            if (answerList.get(chooseAns).isCorrect() && correctAns == 0) {
+                correctAns++;
+                answersToSend.add(answerList.get(chooseAns));
+            } else if (!answerList.get(chooseAns).isCorrect() && incorrectAns < 2) {
+                incorrectAns++;
+                answersToSend.add(answerList.get(chooseAns));
+            }
+            chooseAns++;
+            if(chooseAns == answerList.size()){
+                chooseAns = 0;
+            }
+        }while(answersToSend.size() < 3);
+
+        for(Answer answer : answersToSend){
+            answer.setSent(true);
+        }
         return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 }

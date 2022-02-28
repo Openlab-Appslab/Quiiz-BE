@@ -34,11 +34,9 @@ public class QuestionController {
     @GetMapping("/get/questions")
     @ResponseBody
     public List<QuestionDto> getQuestions(){
-
         List<Question> questionList = new ArrayList<>();
         Iterable<Question> questions = questionService.findAll();
         questions.forEach(questionList::add);
-
 
         return questionList.stream().map(this::convertToDto).collect(Collectors.toList());
     }

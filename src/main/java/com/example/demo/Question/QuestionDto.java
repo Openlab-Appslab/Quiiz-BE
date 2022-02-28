@@ -13,12 +13,12 @@ import java.util.Random;
 @Getter @Setter @NoArgsConstructor
 public class QuestionDto {
 
-    Random rand = new Random();
+    //Random rand = new Random();
 
     private String content;
 
     private List<Answer> answerList;
-    List<Answer> sendingAnswers = new ArrayList<>();
+    //List<Answer> sendingAnswers = new ArrayList<>();
 
 
 //    private List<Answer> getTreeAnswers(){

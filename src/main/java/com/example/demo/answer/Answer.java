@@ -22,6 +22,7 @@ public class Answer {
 
     private String content;
     private boolean correct;
+    private boolean sent;
 
     public Answer(String content, boolean correct){
         this.content = content;
