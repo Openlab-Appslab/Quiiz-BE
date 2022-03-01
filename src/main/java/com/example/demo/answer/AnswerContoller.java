@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -15,24 +16,22 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 @Controller
+@RequestMapping("/answers")
 public class AnswerContoller {
 
     Random random = new Random();
 
-    @Autowired
-    AnswerService answerService;
+    private final AnswerService answerService;
+
+    private final ModelMapper modelMapper;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    private AnswerDto convertToDto(Answer answer){
-        AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
-        answerDto.setContent(answer.getContent());
-        answerDto.setSent(answer.isSent());
-        return answerDto;
+    private AnswerContoller(AnswerService answerService, ModelMapper modelMapper){
+        this.answerService = answerService;
+        this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/get/answers/random")
+    @GetMapping("/random")
     @ResponseBody
     public List<AnswerDto> getRandomAnswers(){
         int correctAns = 0;
@@ -58,7 +57,7 @@ public class AnswerContoller {
         return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
     }
     int chooseAns = 0;
-    @GetMapping("/get/answers/byDifficulty")
+    @GetMapping("/byDifficulty")
     @ResponseBody
     public List<AnswerDto> getAnswersByDifficulty(){
         int correctAns = 0;
@@ -89,5 +88,11 @@ public class AnswerContoller {
             answer.setSent(true);
         }
         return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+    private AnswerDto convertToDto(Answer answer){
+        AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
+        answerDto.setContent(answer.getContent());
+        answerDto.setSent(answer.isSent());
+        return answerDto;
     }
 }

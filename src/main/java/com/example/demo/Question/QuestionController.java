@@ -17,21 +17,17 @@ import java.util.stream.Collectors;
 @RequestMapping
 public class QuestionController {
 
-    Random rand = new Random();
+    private final QuestionService questionService;
+
+    private final ModelMapper modelMapper;
 
     @Autowired
-    private QuestionService questionService;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
-    private QuestionDto convertToDto(Question question){
-        QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
-        questionDto.setContent(question.getContent());
-        return questionDto;
+    private QuestionController(QuestionService questionService, ModelMapper modelMapper){
+        this.questionService = questionService;
+        this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/get/questions")
+    @GetMapping("/getQuestions")
     @ResponseBody
     public List<QuestionDto> getQuestions(){
         List<Question> questionList = new ArrayList<>();
@@ -39,5 +35,11 @@ public class QuestionController {
         questions.forEach(questionList::add);
 
         return questionList.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    private QuestionDto convertToDto(Question question){
+        QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
+        questionDto.setContent(question.getContent());
+        return questionDto;
     }
 }

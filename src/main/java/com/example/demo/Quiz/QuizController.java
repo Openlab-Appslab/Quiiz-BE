@@ -19,33 +19,23 @@ import java.util.stream.Collectors;
 @RequestMapping
 public class QuizController {
 
-    Random rand = new Random();
-
-    @Autowired
     QuizService quizService;
 
-    @Autowired
-    QuestionService questionService;
-
-    @Autowired
-    QuizRepository quizRepository;
-
-    @Autowired
     ModelMapper modelMapper;
 
-    private QuizDto convertToDto(Quiz quiz){
-        QuizDto quizDto = modelMapper.map(quiz, QuizDto.class);
-        quizDto.setName(quiz.getName());
-        return quizDto;
+    @Autowired
+    private QuizController(QuizService quizService, ModelMapper modelMapper){
+        this.quizService = quizService;
+        this.modelMapper = modelMapper;
     }
 
-    @PostMapping("/quiz/question")
+    @PostMapping("/quizQuestion")
     public void postQuiz(@RequestBody Quiz quiz){
         quizService.saveQuiz(quiz);
     }
 
 
-    @GetMapping("/get/quizzes")
+    @GetMapping("/getQuizzes")
     @ResponseBody
     public List<QuizDto> getQuizzes(){
         List<Quiz> quizList = new ArrayList<>();
@@ -55,4 +45,9 @@ public class QuizController {
         return quizList.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    private QuizDto convertToDto(Quiz quiz){
+        QuizDto quizDto = modelMapper.map(quiz, QuizDto.class);
+        quizDto.setName(quiz.getName());
+        return quizDto;
+    }
 }
