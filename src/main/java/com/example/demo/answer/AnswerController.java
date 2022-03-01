@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/answers")
-public class AnswerContoller {
+public class AnswerController {
 
     Random random = new Random();
 
@@ -26,7 +26,7 @@ public class AnswerContoller {
     private final ModelMapper modelMapper;
 
     @Autowired
-    private AnswerContoller(AnswerService answerService, ModelMapper modelMapper){
+    private AnswerController(AnswerService answerService, ModelMapper modelMapper){
         this.answerService = answerService;
         this.modelMapper = modelMapper;
     }
@@ -92,7 +92,6 @@ public class AnswerContoller {
     private AnswerDto convertToDto(Answer answer){
         AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
         answerDto.setContent(answer.getContent());
-        answerDto.setSent(answer.isSent());
         return answerDto;
     }
 }

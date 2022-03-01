@@ -13,8 +13,12 @@ import java.util.List;
 @Service
 public class AnswerServiceImpl implements AnswerService {
 
-    @Autowired
     AnswerRepository answerRepository;
+
+    @Autowired
+    public AnswerServiceImpl(AnswerRepository answerRepository) {
+        this.answerRepository = answerRepository;
+    }
 
     @Override
     public void saveAnswer(Answer answer) {

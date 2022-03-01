@@ -38,16 +38,7 @@ public class QuizController {
     @GetMapping("/getQuizzes")
     @ResponseBody
     public List<QuizDto> getQuizzes(){
-        List<Quiz> quizList = new ArrayList<>();
-        Iterable<Quiz> quizzes = quizService.findAll();
-        quizzes.forEach(quizList::add);
 
-        return quizList.stream().map(this::convertToDto).collect(Collectors.toList());
-    }
-
-    private QuizDto convertToDto(Quiz quiz){
-        QuizDto quizDto = modelMapper.map(quiz, QuizDto.class);
-        quizDto.setName(quiz.getName());
-        return quizDto;
+        return quizService.readQuiz();
     }
 }

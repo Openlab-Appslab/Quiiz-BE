@@ -8,5 +8,4 @@ import lombok.Setter;
 public class AnswerDto {
     private String content;
     private boolean correct;
-    private boolean sent;
 }
