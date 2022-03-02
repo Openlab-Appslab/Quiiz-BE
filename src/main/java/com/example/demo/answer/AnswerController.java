@@ -19,79 +19,22 @@ import java.util.stream.Collectors;
 @RequestMapping("/answers")
 public class AnswerController {
 
-    Random random = new Random();
-
     private final AnswerService answerService;
 
-    private final ModelMapper modelMapper;
-
     @Autowired
-    private AnswerController(AnswerService answerService, ModelMapper modelMapper){
+    private AnswerController(AnswerService answerService){
         this.answerService = answerService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/random")
     @ResponseBody
     public List<AnswerDto> getRandomAnswers(){
-        int correctAns = 0;
-        int incorrectAns = 0;
-
-        List<Answer> answersToSend = new ArrayList<>();
-
-        List<Answer> answerList = new ArrayList<>();
-        Iterable<Answer> answers = answerService.findAll();
-        answers.forEach(answerList::add);
-
-        do {
-            int randomAns = random.nextInt(answerList.size());
-            if (answerList.get(randomAns).isCorrect() && correctAns == 0) {
-                correctAns++;
-                answersToSend.add(answerList.get(randomAns));
-            } else if (!answerList.get(randomAns).isCorrect() && incorrectAns < 2) {
-                incorrectAns++;
-                answersToSend.add(answerList.get(randomAns));
-            }
-        }while(answersToSend.size() < 3);
-
-        return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
+        return answerService.getRandom();
     }
-    int chooseAns = 0;
+
     @GetMapping("/byDifficulty")
     @ResponseBody
     public List<AnswerDto> getAnswersByDifficulty(){
-        int correctAns = 0;
-        int incorrectAns = 0;
-
-
-        List<Answer> answersToSend = new ArrayList<>();
-
-        List<Answer> answerList = new ArrayList<>();
-        Iterable<Answer> answers = answerService.findAll();
-        answers.forEach(answerList::add);
-
-        do {
-            if (answerList.get(chooseAns).isCorrect() && correctAns == 0) {
-                correctAns++;
-                answersToSend.add(answerList.get(chooseAns));
-            } else if (!answerList.get(chooseAns).isCorrect() && incorrectAns < 2) {
-                incorrectAns++;
-                answersToSend.add(answerList.get(chooseAns));
-            }
-            chooseAns++;
-            if(chooseAns == answerList.size()){
-                chooseAns = 0;
-            }
-        }while(answersToSend.size() < 3);
-
-        for(Answer answer : answersToSend){
-            answer.setSent(true);
-        }
-        return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
-    }
-    private AnswerDto convertToDto(Answer answer){
-        AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
-        answerDto.setContent(answer.getContent());
-        return answerDto;
+        return answerService.getByDifficulty();
     }
 }
