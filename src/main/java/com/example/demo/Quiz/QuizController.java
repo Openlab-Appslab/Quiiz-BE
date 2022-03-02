@@ -1,19 +1,11 @@
 package com.example.demo.Quiz;
 
-import com.example.demo.Question.Model.QuestionService;
-import com.example.demo.Question.Question;
-import com.example.demo.Question.QuestionDto;
-import com.example.demo.Quiz.Model.QuizRepository;
 import com.example.demo.Quiz.Model.QuizService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping
@@ -29,7 +21,7 @@ public class QuizController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("/quizQuestion")
+    @PostMapping("/saveQuiz")
     public void postQuiz(@RequestBody Quiz quiz){
         quizService.saveQuiz(quiz);
     }
@@ -38,7 +30,12 @@ public class QuizController {
     @GetMapping("/getQuizzes")
     @ResponseBody
     public List<QuizDto> getQuizzes(){
+        return quizService.readQuizzes();
+    }
 
-        return quizService.readQuiz();
+    @GetMapping("/getQuizzes/names")
+    @ResponseBody
+    public List<String> getQuizNames(){
+        return quizService.getAllQuizNames();
     }
 }

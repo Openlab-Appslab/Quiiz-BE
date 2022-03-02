@@ -16,9 +16,9 @@ public class Answer {
     @GeneratedValue(strategy= GenerationType.AUTO)
     int id;
 
-//    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Question.class)
-//    @JoinColumn(name = "question_id")
-//    private Question question;
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Question.class)
+    @JoinColumn(name = "question_id")
+    private Question question;
 
     private String content;
     private boolean correct;

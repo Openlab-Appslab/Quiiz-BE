@@ -39,15 +39,15 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public List<QuizDto> readQuiz() {
+    public List<QuizDto> readQuizzes() {
 
         List<Quiz> quizzes = quizRepository.findAll();
         return quizzes.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     @Override
-    public Iterable<Quiz> findAll() {
-        return quizRepository.findAll();
+    public List<String> getAllQuizNames() {
+        return quizRepository.getAllQuizNames();
     }
 
     private QuizDto convertToDto(Quiz quiz){

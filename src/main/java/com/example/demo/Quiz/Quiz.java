@@ -19,9 +19,6 @@ import java.util.List;
 public class Quiz {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
     private String name;
 
     @OneToMany(

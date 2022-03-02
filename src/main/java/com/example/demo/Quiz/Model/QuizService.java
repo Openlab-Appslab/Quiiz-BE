@@ -10,7 +10,7 @@ public interface QuizService {
 
     void saveQuiz(Quiz quiz);
 
-    List<QuizDto> readQuiz();
+    List<QuizDto> readQuizzes();
 
-    Iterable<Quiz> findAll();
+    List<String> getAllQuizNames();
 }
