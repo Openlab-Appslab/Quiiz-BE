@@ -35,16 +35,6 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public void saveAnswer(Answer answer) {
-        answerRepository.save(answer);
-    }
-
-    @Override
-    public Iterable<Answer> findAll() {
-        return answerRepository.findAll();
-    }
-
-    @Override
     public List<AnswerDto> getRandom() {
         int correctAns = 0;
         int incorrectAns = 0;

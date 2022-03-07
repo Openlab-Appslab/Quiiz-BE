@@ -11,5 +11,5 @@ public interface QuestionService {
 
     List<QuestionDto> findAll();
 
-    List<Question> getAllByID();
+    List<QuestionDto> getRandomAnsByID();
 }

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("questionRepository")
-public interface QuestionRepository extends JpaRepository<Question, Integer> {
+public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-    @Query("SELECT q.content FROM Question q WHERE q.id = :id")
+    @Query("SELECT a.question FROM Answer a WHERE a.id = :id")
     List<Question> getAllById(@Param("id") long id);
 }

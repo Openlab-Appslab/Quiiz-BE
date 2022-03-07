@@ -30,10 +30,9 @@ public class QuestionController {
         return questionService.findAll();
     }
 
-    @GetMapping("/questionById")
+    @GetMapping("/answersById")
     @ResponseBody
-    public List<Question> getQuestionById(){
-        return questionService.getAllByID();
+    public List<QuestionDto> getRandomAnswersById(){
+        return questionService.getRandomAnsByID();
     }
-
 }

@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Answer {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    int id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Question.class)
     @JoinColumn(name = "question_id")

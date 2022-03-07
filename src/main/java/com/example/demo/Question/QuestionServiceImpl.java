@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,15 +16,12 @@ import java.util.stream.Collectors;
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
-    Answer answer;
-
     ModelMapper modelMapper;
 
     QuestionRepository questionRepository;
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
-    }
+    AnswerService answerService;
+
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) {
@@ -33,6 +31,11 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     public void setQuestionRepository(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
+    }
+
+    @Autowired
+    public void setAnswerService(AnswerService answerService) {
+        this.answerService = answerService;
     }
 
     @Override
@@ -45,13 +48,20 @@ public class QuestionServiceImpl implements QuestionService {
     public List<QuestionDto> findAll() {
 
         List<Question> questionList = questionRepository.findAll();
+
         return questionList.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<Question> getAllByID() {
+    public List<QuestionDto> getRandomAnsByID() {
         List<Question> questionList = questionRepository.getAllById(1L);
-        return questionRepository.getAllById(1L);
+
+        return questionList.stream().map(q -> {
+            QuestionDto question = new QuestionDto();
+            question.setContent(q.getContent());
+            question.setAnswerList(answerService.getRandom());
+            return question;
+        }).collect(Collectors.toList());
     }
 
     private QuestionDto convertToDto(Question question){
