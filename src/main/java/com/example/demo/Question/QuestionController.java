@@ -2,7 +2,6 @@ package com.example.demo.Question;
 
 import com.example.demo.Question.Model.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,9 +29,15 @@ public class QuestionController {
         return questionService.findAll();
     }
 
-    @GetMapping("/answersById")
+    @GetMapping("/questionsAnswersById")
     @ResponseBody
-    public List<QuestionDto> getRandomAnswersById(){
-        return questionService.getRandomAnsByID();
+    public List<QuestionDto> getQuestionById(){
+        return questionService.getQuestionByID();
+    }
+
+    @GetMapping("/quizzesWithQuestions")
+    @ResponseBody
+    public List<QuestionDto> getQuestionForQuiz(){
+        return questionService.getAllQuestionsForQuiz();
     }
 }

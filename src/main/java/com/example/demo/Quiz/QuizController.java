@@ -1,5 +1,7 @@
 package com.example.demo.Quiz;
 
+import com.example.demo.Question.Model.QuestionService;
+import com.example.demo.Question.Question;
 import com.example.demo.Quiz.Model.QuizService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,14 @@ public class QuizController {
     }
 
     @PostMapping("/saveQuiz")
-    public void postQuiz(@RequestBody Quiz quiz){
+    public void saveQuiz(@RequestBody Quiz quiz){
         quizService.saveQuiz(quiz);
     }
 
+//    @PostMapping("/postQuizId")
+//    public void getQuizId(@RequestBody Quiz quiz){
+//        questionService.questionsByQuizName(quiz.getName());
+//    }
 
     @GetMapping("/getQuizzes")
     @ResponseBody
@@ -38,4 +44,4 @@ public class QuizController {
     public List<String> getQuizNames(){
         return quizService.getAllQuizNames();
     }
-}
+ }

@@ -11,5 +11,9 @@ public interface QuestionService {
 
     List<QuestionDto> findAll();
 
-    List<QuestionDto> getRandomAnsByID();
+    List<QuestionDto> getQuestionByID();
+
+    List<QuestionDto> questionsByQuizName(String quizName);
+
+    List<QuestionDto> getAllQuestionsForQuiz();
 }

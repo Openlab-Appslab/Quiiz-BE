@@ -2,6 +2,7 @@ package com.example.demo.Question;
 
 import com.example.demo.Question.Model.QuestionRepository;
 import com.example.demo.Question.Model.QuestionService;
+import com.example.demo.Quiz.Model.QuizRepository;
 import com.example.demo.answer.Answer;
 import com.example.demo.answer.Model.AnswerService;
 import org.modelmapper.ModelMapper;
@@ -22,6 +23,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     AnswerService answerService;
 
+    QuizRepository quizRepository;
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) {
@@ -36,6 +38,11 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     public void setAnswerService(AnswerService answerService) {
         this.answerService = answerService;
+    }
+
+    @Autowired
+    public void setQuizRepository(QuizRepository quizRepository) {
+        this.quizRepository = quizRepository;
     }
 
     @Override
@@ -53,10 +60,30 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<QuestionDto> getRandomAnsByID() {
+    public List<QuestionDto> getQuestionByID() {
         List<Question> questionList = questionRepository.getAllById(1L);
 
         return questionList.stream().map(q -> {
+            QuestionDto question = new QuestionDto();
+            question.setContent(q.getContent());
+            //question.setAnswerList(q.getAnswerList());
+            question.setAnswerList(answerService.getRandom());
+            return question;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<QuestionDto> questionsByQuizName(String quizName) {
+
+        //if(question.getQuiz() = quizName)
+        return null;
+    }
+
+    @Override
+    public List<QuestionDto> getAllQuestionsForQuiz() {
+        List<Question> questions = questionRepository.getAllQuizzesById("Programovaci quiz02");
+
+        return questions.stream().map(q -> {
             QuestionDto question = new QuestionDto();
             question.setContent(q.getContent());
             question.setAnswerList(answerService.getRandom());

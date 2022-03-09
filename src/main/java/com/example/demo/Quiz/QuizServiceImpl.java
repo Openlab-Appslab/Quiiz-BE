@@ -1,6 +1,7 @@
 package com.example.demo.Quiz;
 
 import com.example.demo.Question.Question;
+import com.example.demo.Question.QuestionDto;
 import com.example.demo.Quiz.Model.QuizRepository;
 import com.example.demo.Quiz.Model.QuizService;
 import org.modelmapper.ModelMapper;

@@ -1,6 +1,7 @@
 package com.example.demo.Quiz.Model;
 
 import com.example.demo.Question.Question;
+import com.example.demo.Question.QuestionDto;
 import com.example.demo.Quiz.Quiz;
 import com.example.demo.Quiz.QuizDto;
 

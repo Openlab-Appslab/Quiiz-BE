@@ -37,4 +37,10 @@ public class AnswerController {
     public List<AnswerDto> getAnswersByDifficulty(){
         return answerService.getByDifficulty();
     }
+
+//    @GetMapping("/byId")
+//    @ResponseBody
+//    public List<AnswerDto> getAnswersById(){
+//        return answerService.getAllByID();
+//    }
 }

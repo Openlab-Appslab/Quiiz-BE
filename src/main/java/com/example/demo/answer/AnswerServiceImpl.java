@@ -1,5 +1,6 @@
 package com.example.demo.answer;
 
+import com.example.demo.Question.Model.QuestionRepository;
 import com.example.demo.Question.Question;
 import com.example.demo.Quiz.Quiz;
 import com.example.demo.answer.Model.AnswerRepository;
@@ -39,8 +40,7 @@ public class AnswerServiceImpl implements AnswerService {
         int correctAns = 0;
         int incorrectAns = 0;
 
-        List<Answer> answers = answerRepository.findAll();
-
+        List<Answer> answers = answerRepository.getAllAnsById(1L);
         List<Answer> answersToSend = new ArrayList<>();
 
         do {
@@ -84,6 +84,12 @@ public class AnswerServiceImpl implements AnswerService {
         }
         return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
     }
+
+//    @Override
+//    public List<AnswerDto> getAllByID() {
+//        List<Answer> answers = answerRepository.getAllById(1L);
+//        return answers.stream().map(this::convertToDto).collect(Collectors.toList());
+//    }
 
     private AnswerDto convertToDto(Answer answer){
         AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
