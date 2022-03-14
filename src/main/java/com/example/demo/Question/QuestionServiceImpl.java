@@ -3,14 +3,14 @@ package com.example.demo.Question;
 import com.example.demo.Question.Model.QuestionRepository;
 import com.example.demo.Question.Model.QuestionService;
 import com.example.demo.Quiz.Model.QuizRepository;
-import com.example.demo.answer.Answer;
+import com.example.demo.Quiz.Model.QuizService;
+import com.example.demo.QuizIdPut.Model.QuizIdPutRepository;
+import com.example.demo.QuizIdPut.Model.QuizIdPutService;
 import com.example.demo.answer.Model.AnswerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Id;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +24,11 @@ public class QuestionServiceImpl implements QuestionService {
     AnswerService answerService;
 
     QuizRepository quizRepository;
+
+    QuizService quizService;
+
+    QuizIdPutService quizIdPutService;
+
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) {
@@ -45,6 +50,16 @@ public class QuestionServiceImpl implements QuestionService {
         this.quizRepository = quizRepository;
     }
 
+    @Autowired
+    public void setQuizService(QuizService quizService) {
+        this.quizService = quizService;
+    }
+
+    @Autowired
+    public void setQuizIdPutRepository(QuizIdPutService quizIdPutService) {
+        this.quizIdPutService = quizIdPutService;
+    }
+
     @Override
     public List<QuestionDto> saveQuestions(List<Question> questions) {
         List<Question> questionList = questionRepository.saveAll(questions);
@@ -60,28 +75,8 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<QuestionDto> getQuestionByID() {
-        List<Question> questionList = questionRepository.getAllById(1L);
-
-        return questionList.stream().map(q -> {
-            QuestionDto question = new QuestionDto();
-            question.setContent(q.getContent());
-            //question.setAnswerList(q.getAnswerList());
-            question.setAnswerList(answerService.getRandom());
-            return question;
-        }).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<QuestionDto> questionsByQuizName(String quizName) {
-
-        //if(question.getQuiz() = quizName)
-        return null;
-    }
-
-    @Override
     public List<QuestionDto> getAllQuestionsForQuiz() {
-        List<Question> questions = questionRepository.getAllQuizzesById("Programovaci quiz02");
+        List<Question> questions = questionRepository.getAllQuestionsById(quizIdPutService.getQuizId());
 
         return questions.stream().map(q -> {
             QuestionDto question = new QuestionDto();

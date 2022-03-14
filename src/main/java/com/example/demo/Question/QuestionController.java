@@ -29,15 +29,21 @@ public class QuestionController {
         return questionService.findAll();
     }
 
-    @GetMapping("/questionsAnswersById")
-    @ResponseBody
-    public List<QuestionDto> getQuestionById(){
-        return questionService.getQuestionByID();
-    }
+//    @GetMapping("/questionsAnswersById")
+//    @ResponseBody
+//    public List<QuestionDto> getQuestionById(){
+//        return questionService.getQuestionByID();
+//    }
 
-    @GetMapping("/quizzesWithQuestions")
+    @GetMapping("/questionsByQuizId")
     @ResponseBody
     public List<QuestionDto> getQuestionForQuiz(){
         return questionService.getAllQuestionsForQuiz();
+    }
+
+    @GetMapping("/question/{quizId}")
+    @ResponseBody
+    public String getQuestionsByQizId(@PathVariable String quizId) {
+        return quizId;
     }
 }

@@ -23,6 +23,8 @@ public class Question implements java.io.Serializable{
 
     private String content;
 
+    private String chosenQuiz;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;

@@ -14,4 +14,8 @@ public interface QuizService {
     List<QuizDto> readQuizzes();
 
     List<String> getAllQuizNames();
+
+    String getQuizName(String quizName);
+
+    String setQuizName();
 }

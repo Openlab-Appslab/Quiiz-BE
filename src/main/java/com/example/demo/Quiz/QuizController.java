@@ -28,10 +28,10 @@ public class QuizController {
         quizService.saveQuiz(quiz);
     }
 
-//    @PostMapping("/postQuizId")
-//    public void getQuizId(@RequestBody Quiz quiz){
-//        questionService.questionsByQuizName(quiz.getName());
-//    }
+    @PostMapping("/postQuizId")
+    public void getQuizId(@RequestBody String quizName){
+        quizService.getQuizName(quizName);
+    }
 
     @GetMapping("/getQuizzes")
     @ResponseBody

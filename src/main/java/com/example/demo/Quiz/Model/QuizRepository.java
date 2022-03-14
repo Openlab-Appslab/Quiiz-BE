@@ -11,4 +11,7 @@ import java.util.List;
 public interface QuizRepository extends JpaRepository<Quiz, String> {
     @Query("SELECT q.name FROM Quiz q")
     List<String> getAllQuizNames();
+
+    @Query("SELECT q.name FROM Quiz q WHERE q.name = :id")
+    String getQuizName(@Param("id") String id);
 }
