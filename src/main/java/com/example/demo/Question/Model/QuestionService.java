@@ -11,7 +11,7 @@ public interface QuestionService {
 
     List<QuestionDto> findAll();
 
-    //List<QuestionDto> getQuestionByID();
+    Long getQuestionId();
 
     List<QuestionDto> getAllQuestionsForQuiz();
 }

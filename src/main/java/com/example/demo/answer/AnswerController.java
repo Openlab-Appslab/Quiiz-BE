@@ -26,11 +26,11 @@ public class AnswerController {
         this.answerService = answerService;
     }
 
-    @GetMapping("/random")
-    @ResponseBody
-    public List<AnswerDto> getRandomAnswers(){
-        return answerService.getRandom();
-    }
+//    @GetMapping("/random")
+//    @ResponseBody
+//    public List<AnswerDto> getRandomAnswers(){
+//        return answerService.getRandom();
+//    }
 
     @GetMapping("/byDifficulty")
     @ResponseBody

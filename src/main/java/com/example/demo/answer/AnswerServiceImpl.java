@@ -36,11 +36,11 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public List<AnswerDto> getRandom() {
+    public List<AnswerDto> getRandom(long id) {
         int correctAns = 0;
         int incorrectAns = 0;
 
-        List<Answer> answers = answerRepository.getAllAnsById(1L);
+        List<Answer> answers = answerRepository.getAllAnsById(id);
         List<Answer> answersToSend = new ArrayList<>();
 
         do {

@@ -10,6 +10,7 @@ import java.util.List;
 @Getter @Setter @NoArgsConstructor
 public class QuestionDto {
 
+    private long id;
     private String content;
     private List<AnswerDto> answerList;
 

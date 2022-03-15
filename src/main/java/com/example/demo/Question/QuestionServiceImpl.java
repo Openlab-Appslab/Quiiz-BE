@@ -81,14 +81,20 @@ public class QuestionServiceImpl implements QuestionService {
         return questions.stream().map(q -> {
             QuestionDto question = new QuestionDto();
             question.setContent(q.getContent());
-            question.setAnswerList(answerService.getRandom());
+            question.setAnswerList(answerService.getRandom(q.getId()));
             return question;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Long getQuestionId() {
+        return null;
     }
 
     private QuestionDto convertToDto(Question question){
         QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);
         questionDto.setContent(question.getContent());
+        questionDto.setId(question.getId());
         return questionDto;
     }
 }
