@@ -17,17 +17,17 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    @PostMapping("/saveQuestions")
-    public void postQuestions(@RequestBody List<Question> questions){
-        questionService.saveQuestions(questions);
-    }
-
-    @GetMapping("/getQuestions")
-    @ResponseBody
-    public List<QuestionDto> getQuestions(){
-
-        return questionService.findAll();
-    }
+//    @PostMapping("/saveQuestions")
+//    public void postQuestions(@RequestBody List<Question> questions){
+//        questionService.saveQuestions(questions);
+//    }
+//
+//    @GetMapping("/getQuestions")
+//    @ResponseBody
+//    public List<QuestionDto> getQuestions(){
+//
+//        return questionService.findAll();
+//    }
 
 //    @GetMapping("/questionsAnswersById")
 //    @ResponseBody
@@ -35,15 +35,15 @@ public class QuestionController {
 //        return questionService.getQuestionByID();
 //    }
 
-    @GetMapping("/questionsByQuizId")
-    @ResponseBody
-    public List<QuestionDto> getQuestionForQuiz(){
-        return questionService.getAllQuestionsForQuiz();
-    }
+//    @GetMapping("/questionsByQuizId")
+//    @ResponseBody
+//    public List<QuestionDto> getQuestionForQuiz(){
+//        return questionService.getAllQuestionsForQuiz();
+//    }
 
-    @GetMapping("/question/{quizId}")
-    @ResponseBody
-    public String getQuestionsByQizId(@PathVariable String quizId) {
-        return quizId;
-    }
+//    @GetMapping("/questionForQuiz/{quizId}")
+//    @ResponseBody
+//    public String getQuestionsByQizId(@PathVariable String quizId) {
+//        return quizId;
+//    }
 }

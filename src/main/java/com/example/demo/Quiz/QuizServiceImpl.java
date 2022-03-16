@@ -56,11 +56,6 @@ public class QuizServiceImpl implements QuizService {
         return quizRepository.getQuizName(quizName);
     }
 
-    @Override
-    public String setQuizName() {
-        return null;
-    }
-
     private QuizDto convertToDto(Quiz quiz){
         QuizDto quizDto = modelMapper.map(quiz, QuizDto.class);
         quizDto.setName(quiz.getName());

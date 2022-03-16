@@ -57,40 +57,6 @@ public class AnswerServiceImpl implements AnswerService {
         return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    @Override
-    public List<AnswerDto> getByDifficulty() {
-        int correctAns = 0;
-        int incorrectAns = 0;
-
-        List<Answer> answersToSend = new ArrayList<>();
-        List<Answer> answers = answerRepository.findAll();
-
-        do {
-            if (answers.get(chooseAns).isCorrect() && correctAns == 0) {
-                correctAns++;
-                answersToSend.add(answers.get(chooseAns));
-            } else if (!answers.get(chooseAns).isCorrect() && incorrectAns < 2) {
-                incorrectAns++;
-                answersToSend.add(answers.get(chooseAns));
-            }
-            chooseAns++;
-            if(chooseAns == answers.size()){
-                chooseAns = 0;
-            }
-        }while(answersToSend.size() < 3);
-
-        for(Answer answer : answersToSend){
-            answer.setSent(true);
-        }
-        return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
-    }
-
-//    @Override
-//    public List<AnswerDto> getAllByID() {
-//        List<Answer> answers = answerRepository.getAllById(1L);
-//        return answers.stream().map(this::convertToDto).collect(Collectors.toList());
-//    }
-
     private AnswerDto convertToDto(Answer answer){
         AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
         answerDto.setContent(answer.getContent());

@@ -75,21 +75,17 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<QuestionDto> getAllQuestionsForQuiz() {
-        List<Question> questions = questionRepository.getAllQuestionsById(quizIdPutService.getQuizId());
+    public List<QuestionDto> getAllQuestionsForQuiz(String quizId) {
+        List<Question> questions = questionRepository.getAllQuestionsById(quizId);
 
         return questions.stream().map(q -> {
-            QuestionDto question = new QuestionDto();
-            question.setContent(q.getContent());
+            QuestionDto question = convertToDto(q);
             question.setAnswerList(answerService.getRandom(q.getId()));
             return question;
         }).collect(Collectors.toList());
     }
 
-    @Override
-    public Long getQuestionId() {
-        return null;
-    }
+
 
     private QuestionDto convertToDto(Question question){
         QuestionDto questionDto = modelMapper.map(question, QuestionDto.class);

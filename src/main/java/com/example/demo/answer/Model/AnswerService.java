@@ -8,8 +8,4 @@ import java.util.List;
 public interface AnswerService {
 
     List<AnswerDto> getRandom(long id);
-
-    List<AnswerDto> getByDifficulty();
-
-    //List<AnswerDto> getAllByID();
 }
