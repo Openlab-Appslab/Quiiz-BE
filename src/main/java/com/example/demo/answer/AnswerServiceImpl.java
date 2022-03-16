@@ -1,8 +1,5 @@
 package com.example.demo.answer;
 
-import com.example.demo.Question.Model.QuestionRepository;
-import com.example.demo.Question.Question;
-import com.example.demo.Quiz.Quiz;
 import com.example.demo.answer.Model.AnswerRepository;
 import com.example.demo.answer.Model.AnswerService;
 import org.modelmapper.ModelMapper;
@@ -16,8 +13,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class AnswerServiceImpl implements AnswerService {
-
-    int chooseAns = 0;
 
     Random random = new Random();
 
@@ -60,6 +55,7 @@ public class AnswerServiceImpl implements AnswerService {
     private AnswerDto convertToDto(Answer answer){
         AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
         answerDto.setContent(answer.getContent());
+        answerDto.setId(answer.getId());
         return answerDto;
     }
 }

@@ -4,8 +4,6 @@ import com.example.demo.Question.Model.QuestionRepository;
 import com.example.demo.Question.Model.QuestionService;
 import com.example.demo.Quiz.Model.QuizRepository;
 import com.example.demo.Quiz.Model.QuizService;
-import com.example.demo.QuizIdPut.Model.QuizIdPutRepository;
-import com.example.demo.QuizIdPut.Model.QuizIdPutService;
 import com.example.demo.answer.Model.AnswerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +24,6 @@ public class QuestionServiceImpl implements QuestionService {
     QuizRepository quizRepository;
 
     QuizService quizService;
-
-    QuizIdPutService quizIdPutService;
 
 
     @Autowired
@@ -53,11 +49,6 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     public void setQuizService(QuizService quizService) {
         this.quizService = quizService;
-    }
-
-    @Autowired
-    public void setQuizIdPutRepository(QuizIdPutService quizIdPutService) {
-        this.quizIdPutService = quizIdPutService;
     }
 
     @Override
