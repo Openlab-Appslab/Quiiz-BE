@@ -52,6 +52,16 @@ public class AnswerServiceImpl implements AnswerService {
         return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    @Override
+    public boolean getAnswer(long id) {
+        if(answerRepository.getAnswer(id).isCorrect()) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     private AnswerDto convertToDto(Answer answer){
         AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
         answerDto.setContent(answer.getContent());
