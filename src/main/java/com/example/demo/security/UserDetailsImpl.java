@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-import org.apache.catalina.User;
+import com.example.demo.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
