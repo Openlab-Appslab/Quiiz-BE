@@ -12,7 +12,9 @@ public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 
-    public UserDetailsImpl(User user){this.user = user;}
+    public UserDetailsImpl(User user) {
+        this.user = user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -48,4 +50,5 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

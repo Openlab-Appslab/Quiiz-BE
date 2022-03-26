@@ -1,6 +1,5 @@
 package com.example.demo.security;
 
-
 import com.example.demo.user.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +11,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserService userService;
 
-    public UserDetailsServiceImpl(UserService userService){
+    public UserDetailsServiceImpl(UserService userService) {
         this.userService = userService;
     }
 
@@ -22,4 +21,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .map(UserDetailsImpl::new)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
+
 }

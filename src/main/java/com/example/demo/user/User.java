@@ -1,15 +1,10 @@
 package com.example.demo.user;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@NoArgsConstructor
 @Entity
 public class User {
 
@@ -20,11 +15,15 @@ public class User {
     private String password;
     private long score;
 
-    public User(String username, String password, long score){
+    public User() {
+    }
+
+    public User(String username, String password, long score) {
         this.username = username;
         this.password = password;
         this.score = score;
     }
+
     public long getId() {
         return id;
     }
@@ -56,4 +55,5 @@ public class User {
     public void setScore(long score) {
         this.score = score;
     }
+
 }
