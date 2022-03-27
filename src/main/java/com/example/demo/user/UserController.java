@@ -1,8 +1,7 @@
 package com.example.demo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,4 +21,15 @@ public class UserController {
         return userService.getUsers();
     }
 
+    //add score to user
+    @PutMapping("/score/{userScore}")
+    public UserDto setScore(@PathVariable long userScore){
+        return userService.setScoreOfLoggedUser(userScore);
+    }
+
+    //save new user to db
+    @PostMapping("/registration")
+    public void addUser(@RequestBody User user){
+        userService.addUser(user);
+    }
 }

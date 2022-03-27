@@ -8,4 +8,5 @@ public interface UserService {
     Optional<User> getUserByUsername(String username);
     User updateUser(User user);
     List<UserDto> getUsers();
+    UserDto setScoreOfLoggedUser(long score);
 }
