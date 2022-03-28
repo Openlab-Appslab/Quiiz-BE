@@ -11,11 +11,7 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findByUsername(String username);
-    //List<User> getAllUsers();
 
     @Query("SELECT u FROM User u ")
     List<User> getAllUsers();
-
-    @Query("SELECT u FROM User u WHERE u.username = :name")
-    User getLoggedUser(@Param("name") String name);
 }
