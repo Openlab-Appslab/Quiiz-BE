@@ -1,7 +1,6 @@
 package com.example.demo.Quiz;
 
 import com.example.demo.Question.Model.QuestionService;
-import com.example.demo.Question.Question;
 import com.example.demo.Question.QuestionDto;
 import com.example.demo.Quiz.Model.QuizService;
 import org.modelmapper.ModelMapper;
@@ -52,6 +51,6 @@ public class QuizController {
     @GetMapping("/quiz/{quizId}")
     @ResponseBody
     public List<QuestionDto> getQuestionForQuiz(@PathVariable String quizId){
-        return questionService.getAllQuestionsForQuiz(quizId);
+        return questionService.getRandomQuestionsForQuiz(quizId);
     }
  }

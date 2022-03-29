@@ -1,11 +1,13 @@
 package com.example.demo.answer;
 
 import com.example.demo.Question.Question;
+import com.example.demo.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -19,6 +21,9 @@ public class Answer {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Question.class)
     @JoinColumn(name = "question_id")
     private Question question;
+
+    @ManyToMany
+    Set<User> userSet;
 
     private String content;
     private boolean correct;

@@ -1,9 +1,9 @@
 package com.example.demo.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.example.demo.answer.Answer;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -23,6 +23,9 @@ public class User {
         this.password = password;
         this.score = score;
     }
+
+    @ManyToMany
+    Set<Answer> answerSet;
 
     public long getId() {
         return id;
@@ -55,5 +58,4 @@ public class User {
     public void setScore(long score) {
         this.score = score;
     }
-
 }

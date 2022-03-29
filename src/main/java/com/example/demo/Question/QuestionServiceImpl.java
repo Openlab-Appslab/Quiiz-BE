@@ -66,7 +66,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<QuestionDto> getAllQuestionsForQuiz(String quizId) {
+    public List<QuestionDto> getRandomQuestionsForQuiz(String quizId) {
         List<Question> questions = questionRepository.getAllQuestionsById(quizId);
 
         return questions.stream().map(q -> {
