@@ -22,8 +22,8 @@ public class Answer {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @ManyToMany
-    Set<User> userSet;
+    @ManyToOne
+    User user;
 
     private String content;
     private boolean correct;

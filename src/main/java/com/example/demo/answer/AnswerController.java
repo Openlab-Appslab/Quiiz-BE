@@ -2,12 +2,11 @@ package com.example.demo.answer;
 
 import com.example.demo.Question.QuestionDto;
 import com.example.demo.answer.Model.AnswerService;
+import com.example.demo.user.UserAnswerDto;
+import com.example.demo.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,9 +16,12 @@ public class AnswerController {
 
     private final AnswerService answerService;
 
+    private final UserService userService;
+
     @Autowired
-    private AnswerController(AnswerService answerService){
+    private AnswerController(AnswerService answerService, UserService userService){
         this.answerService = answerService;
+        this.userService = userService;
     }
 
 //    @GetMapping("/random")
@@ -38,5 +40,10 @@ public class AnswerController {
     @ResponseBody
     public boolean getAnswerId(@PathVariable long answerId){
         return answerService.getAnswer(answerId);
+    }
+
+    @GetMapping("/sentAnswer")
+    public UserAnswerDto getSentAnswer(){
+        return userService.saveUserAnswer();
     }
 }

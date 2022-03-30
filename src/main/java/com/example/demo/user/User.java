@@ -1,11 +1,16 @@
 package com.example.demo.user;
 
 import com.example.demo.answer.Answer;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -15,6 +20,9 @@ public class User {
     private String password;
     private long score;
 
+    @OneToMany
+    Set<Answer> answerSet;
+
     public User() {
     }
 
@@ -23,9 +31,6 @@ public class User {
         this.password = password;
         this.score = score;
     }
-
-    @ManyToMany
-    Set<Answer> answerSet;
 
     public long getId() {
         return id;

@@ -1,5 +1,7 @@
 package com.example.demo.user;
 
+import com.example.demo.answer.Answer;
+import com.example.demo.answer.Model.AnswerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +26,13 @@ public class UserServiceImpl implements UserService {
     private UserService userService;
 
     private final PasswordEncoder passwordEncoder;
+
+    private AnswerRepository answerRepository;
+
+    @Autowired
+    public void setAnswerRepository(AnswerRepository answerRepository) {
+        this.answerRepository = answerRepository;
+    }
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -70,12 +80,29 @@ public class UserServiceImpl implements UserService {
         return convertToDto(repository.save(user));
     }
 
+    @Override
+    public UserAnswerDto saveUserAnswer() {
+        User user = this.getCurrentUser();
+        long userId = repository.getCurrentUserId(user);
+        Set<Answer> answerSet = answerRepository.getSentAnswer();
+        return convertToUserAnsDto(userId, answerSet);
+    }
+
     private UserDto convertToDto(User user){
         UserDto userDto = modelMapper.map(user, UserDto.class);
         userDto.setName(user.getUsername());
         userDto.setScore(user.getScore());
         return userDto;
     }
+
+    private UserAnswerDto convertToUserAnsDto(long userId, Set<Answer> answers){
+        UserAnswerDto userAnswerDto = modelMapper.map(userId, UserAnswerDto.class);
+        userAnswerDto.setUserId(userId);
+        userAnswerDto.setAnswerSet(answers);
+        return userAnswerDto;
+    }
+
+
     private User getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
