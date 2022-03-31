@@ -3,6 +3,7 @@ package com.example.demo.answer;
 import com.example.demo.answer.Model.AnswerRepository;
 import com.example.demo.answer.Model.AnswerService;
 import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
 import com.example.demo.user.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,13 @@ public class AnswerServiceImpl implements AnswerService {
     ModelMapper modelMapper;
 
     UserService userService;
+
+    UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Autowired
     public void setAnswerRepository(AnswerRepository answerRepository) {
@@ -85,7 +93,7 @@ public class AnswerServiceImpl implements AnswerService {
 
         Set<Answer> targetSet = new HashSet<>(answersToSend);
         user.setAnswerSet(targetSet);
-
+        userRepository.save(user);
         return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
