@@ -1,11 +1,14 @@
 package com.example.demo.user;
 
 import com.example.demo.answer.Answer;
+import com.example.demo.userScore.UserScore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,6 +29,9 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "answer_id"))
     Set<Answer> answerSet;
+
+    @OneToMany
+    List<UserScore> userIds;
 
     public User() {
     }

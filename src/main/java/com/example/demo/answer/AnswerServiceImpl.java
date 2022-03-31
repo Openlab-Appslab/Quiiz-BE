@@ -11,9 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +42,7 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public List<AnswerDto> getRandom(long id) {
+        Answer answer01 = new Answer();
         User user = this.getCurrentUser();
         int correctAns = 0;
         int incorrectAns = 0;
@@ -82,6 +81,10 @@ public class AnswerServiceImpl implements AnswerService {
                 //
             }
         }while(answersToSend.size() < 3);
+
+
+        Set<Answer> targetSet = new HashSet<>(answersToSend);
+        user.setAnswerSet(targetSet);
 
         return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
     }

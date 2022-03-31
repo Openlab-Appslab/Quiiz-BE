@@ -1,6 +1,7 @@
 package com.example.demo.Quiz;
 
 import com.example.demo.Question.Question;
+import com.example.demo.userScore.UserScore;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -27,4 +28,7 @@ public class Quiz {
     )
     @JoinColumn(name = "quiz_id")
     private List<Question> questionList = new ArrayList<>();
+
+    @OneToMany
+    List<UserScore> quizIds;
 }
