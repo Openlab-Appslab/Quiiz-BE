@@ -20,7 +20,11 @@ public class User {
     private String password;
     private long score;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+            name = "sent_answer",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "answer_id"))
     Set<Answer> answerSet;
 
     public User() {

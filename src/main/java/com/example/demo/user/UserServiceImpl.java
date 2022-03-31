@@ -80,26 +80,11 @@ public class UserServiceImpl implements UserService {
         return convertToDto(repository.save(user));
     }
 
-    @Override
-    public UserAnswerDto saveUserAnswer() {
-        User user = this.getCurrentUser();
-        long userId = repository.getCurrentUserId(user);
-        Set<Answer> answerSet = answerRepository.getSentAnswer();
-        return convertToUserAnsDto(userId, answerSet);
-    }
-
     private UserDto convertToDto(User user){
         UserDto userDto = modelMapper.map(user, UserDto.class);
         userDto.setName(user.getUsername());
         userDto.setScore(user.getScore());
         return userDto;
-    }
-
-    private UserAnswerDto convertToUserAnsDto(long userId, Set<Answer> answers){
-        UserAnswerDto userAnswerDto = modelMapper.map(userId, UserAnswerDto.class);
-        userAnswerDto.setUserId(userId);
-        userAnswerDto.setAnswerSet(answers);
-        return userAnswerDto;
     }
 
 

@@ -42,8 +42,4 @@ public class AnswerController {
         return answerService.getAnswer(answerId);
     }
 
-    @GetMapping("/sentAnswer")
-    public UserAnswerDto getSentAnswer(){
-        return userService.saveUserAnswer();
-    }
 }

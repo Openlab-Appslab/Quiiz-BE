@@ -9,5 +9,5 @@ public interface UserService {
     User updateUser(User user);
     List<UserDto> getUsers();
     UserDto setScoreOfLoggedUser(long score);
-    UserAnswerDto saveUserAnswer();
+    //UserAnswerDto saveUserAnswer();
 }
