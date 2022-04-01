@@ -82,9 +82,24 @@ public class AnswerServiceImpl implements AnswerService {
                         answerWasUsed = true;
                     }
                 }
-                if(!answerWasUsed){
+                if(!answerWasUsed ){
+                    boolean differentAns = true;
                     answersToSend.add(answers.get(randomAns));
-                    incorrectAns++;
+                    for(int i = 0; i < answersToSend.size(); i++) {
+                        for (int a = 0; a < answersToSend.size(); a++) {
+
+                            if (i != a && answersToSend.get(i) == answersToSend.get(a)){
+                                differentAns = false;
+                            }
+                        }
+                    }
+                    if(differentAns){
+                        incorrectAns++;
+                    }else{
+                        answersToSend.clear();
+                        incorrectAns = 0;
+                        correctAns = 0;
+                    }
                 }
                 //
             }
