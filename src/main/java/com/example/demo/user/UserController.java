@@ -28,7 +28,7 @@ public class UserController {
     }
 
     //save new user to db
-    @PostMapping("/registration")
+    @PostMapping("/register")
     public void addUser(@RequestBody User user){
         userService.addUser(user);
     }

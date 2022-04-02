@@ -19,6 +19,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(unique = true)
     private String username;
     private String password;
     private long score;
@@ -30,8 +32,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "answer_id"))
     Set<Answer> answerSet;
 
-    @OneToMany
-    List<UserScore> userIds;
+//    @OneToMany
+//    List<UserScore> userIds;
 
     public User() {
     }

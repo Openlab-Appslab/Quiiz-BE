@@ -18,6 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
+                .mvcMatchers("/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

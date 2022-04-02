@@ -27,13 +27,6 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private AnswerRepository answerRepository;
-
-    @Autowired
-    public void setAnswerRepository(AnswerRepository answerRepository) {
-        this.answerRepository = answerRepository;
-    }
-
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -51,10 +44,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        user.setId(0);
-        String encodedPassword = this.passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        return this.repository.save(user);
+        if(!repository.findByUsername(user.getUsername()).isPresent()){
+
+            user.setId(0);
+            String encodedPassword = this.passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+            return this.repository.save(user);
+        }
+        return user;
     }
 
     @Override
@@ -79,6 +76,11 @@ public class UserServiceImpl implements UserService {
 
         return convertToDto(repository.save(user));
     }
+
+//    @Override
+//    public User register(User user) throws UserAlreadyExistException {
+//        return null;
+//    }
 
     private UserDto convertToDto(User user){
         UserDto userDto = modelMapper.map(user, UserDto.class);

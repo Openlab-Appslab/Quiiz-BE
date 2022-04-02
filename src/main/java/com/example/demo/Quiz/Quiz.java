@@ -29,6 +29,6 @@ public class Quiz {
     @JoinColumn(name = "quiz_id")
     private List<Question> questionList = new ArrayList<>();
 
-    @OneToMany
-    List<UserScore> quizIds;
+//    @OneToMany
+//    List<UserScore> quizIds;
 }

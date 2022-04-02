@@ -22,12 +22,11 @@ public class Answer {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @ManyToMany(mappedBy = "answerSet")
-    Set<User> user;
+//    @ManyToMany(mappedBy = "answerSet")
+//    Set<User> user;
 
     private String content;
     private boolean correct;
-    private boolean sent;
 
     public Answer(String content, boolean correct){
         this.content = content;
