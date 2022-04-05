@@ -21,7 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .mvcMatchers("/register").permitAll()
-                .anyRequest().authenticated()
+                //.anyRequest().authenticated()
                 .and()
                 .httpBasic();
 
@@ -30,6 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .logoutUrl("/logout")
                         .addLogoutHandler(new SecurityContextLogoutHandler())
                 );
+
+        http.headers().frameOptions().disable();
     }
 
     @Bean
