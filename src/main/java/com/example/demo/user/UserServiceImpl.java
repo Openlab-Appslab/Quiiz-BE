@@ -23,14 +23,7 @@ public class UserServiceImpl implements UserService {
 
     private ModelMapper modelMapper;
 
-    private UserService userService;
-
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 
     public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
@@ -97,12 +90,12 @@ public class UserServiceImpl implements UserService {
                 .getPrincipal();
 
         String username = userDetails.getUsername();
-        return this.userService.getUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        return this.getUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
 
     private void createAndPersistUser(String username, String password) {
         String encodedPassword = this.passwordEncoder.encode(password);
         User user = new User(username, encodedPassword, 0);
-        this.userService.addUser(user);
+        this.addUser(user);
     }
 }
