@@ -50,79 +50,83 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public List<AnswerDto> getRandom(long id) {
-        Answer answer01 = new Answer();
         User user = this.getCurrentUser();
         int correctAns = 0;
         int incorrectAns = 0;
-        boolean answerWasUsed = false;
+        boolean answerReadyToSend;
+        boolean needToBeCleared;
 
         List<Answer> answers = answerRepository.getAllAnsById(id);
         List<Answer> answersToSend = new ArrayList<>();
 
         do {
+            needToBeCleared = false;
+            answerReadyToSend = false;
+            boolean answerWasUsed = false;
             int randomAns = random.nextInt(answers.size());
-            if (answers.get(randomAns).isCorrect() && correctAns == 0) {
-                //setting sent ans for user
-                for(Answer answer : user.getAnswerSet() ){
-                    if(answer == answers.get(randomAns)){
+
+            //check if the same answer isn't being sent two times
+            if (answersToSend.size() != 0) {
+                for (Answer ans : answersToSend) {
+                    if (ans == answers.get(randomAns)) {
                         answerWasUsed = true;
                     }
                 }
-                if(!answerWasUsed){
-                    answersToSend.add(answers.get(randomAns));
-                    correctAns++;
-                }
-                //
+            }
 
-                answerWasUsed = false;
-            } else if (!answers.get(randomAns).isCorrect() && incorrectAns < 2) {
-                //setting sent ans for user
-                for(Answer answer : user.getAnswerSet() ){
-                    if(answer == answers.get(randomAns)){
-                        answerWasUsed = true;
-                    }
-                }
-                if(!answerWasUsed ){
-                    boolean differentAns = true;
-                    answersToSend.add(answers.get(randomAns));
-                    for(int i = 0; i < answersToSend.size(); i++) {
-                        for (int a = 0; a < answersToSend.size(); a++) {
+            //adding 1 correct, 2 incorrect answers
+            if (answers.get(randomAns).isCorrect() && correctAns == 0 && !answerWasUsed) {
+                answersToSend.add(answers.get(randomAns));
+                correctAns++;
+            } else if (!answers.get(randomAns).isCorrect() && incorrectAns < 2 && !answerWasUsed) {
+                answersToSend.add(answers.get(randomAns));
+                incorrectAns++;
+            }
 
-                            if (i != a && answersToSend.get(i) == answersToSend.get(a)){
-                                differentAns = false;
-                            }
+            //check if answers aren't already stored in db
+            if (answersToSend.size() == 3 && user.getAnswerSet().size() != 0) {
+                for (Answer ans : user.getAnswerSet()) {
+                    for (Answer answerSend : answersToSend) {
+                        if (answerSend == ans) {
+                            needToBeCleared = true;
                         }
                     }
-                    if(differentAns){
-                        incorrectAns++;
-                    }else{
-                        answersToSend.clear();
-                        incorrectAns = 0;
-                        correctAns = 0;
-                    }
                 }
-                //
+                if(!needToBeCleared){
+                    answerReadyToSend = true;
+                }else{
+                    answersToSend.clear();
+                    correctAns = 0;
+                    incorrectAns = 0;
+                }
             }
-        }while(answersToSend.size() < 3);
+            else if(answersToSend.size() == 3 && user.getAnswerSet().size() == 0){ //if there are no data in db jet
+                answerReadyToSend = true;
+            }
 
+            //check if aren't already saved all answers
+            //if(user.getAnswerSet(). == )
+        } while (!answerReadyToSend);
 
-        Set<Answer> targetSet = new HashSet<>(answersToSend);
-        user.setAnswerSet(targetSet);
+        //add new used answers to database
+        for (Answer ansToAdd : answersToSend) {
+            user.getAnswerSet().add(ansToAdd);
+        }
+
         userRepository.save(user);
         return answersToSend.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     @Override
     public boolean getAnswer(long id) {
-        if(answerRepository.getAnswer(id).isCorrect()) {
+        if (answerRepository.getAnswer(id).isCorrect()) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-    private AnswerDto convertToDto(Answer answer){
+    private AnswerDto convertToDto(Answer answer) {
         AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
         answerDto.setContent(answer.getContent());
         answerDto.setId(answer.getId());

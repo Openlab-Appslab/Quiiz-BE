@@ -68,7 +68,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<QuestionDto> getRandomQuestionsForQuiz(String quizId) {
         List<Question> questions = questionRepository.getAllQuestionsById(quizId);
-
+// tu pozriet ci uz su ulozene v db vsetky answers k tejto question
         return questions.stream().map(q -> {
             QuestionDto question = convertToDto(q);
             question.setAnswerList(answerService.getRandom(q.getId()));

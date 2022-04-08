@@ -31,16 +31,16 @@ public class QuizController {
         quizService.saveQuiz(quiz);
     }
 
-    @PostMapping("/postQuizId")
-    public void getQuizId(@RequestBody String quizName){
-        quizService.getQuizName(quizName);
-    }
-
-    @GetMapping("/quiz")
-    @ResponseBody
-    public List<QuizDto> getQuizzes(){
-        return quizService.readQuizzes();
-    }
+//    @PostMapping("/postQuizId")
+//    public void getQuizId(@RequestBody String quizName){
+//        quizService.getQuizName(quizName);
+//    }
+//
+//    @GetMapping("/quiz")
+//    @ResponseBody
+//    public List<QuizDto> getQuizzes(){
+//        return quizService.readQuizzes();
+//    }
 
     @GetMapping("/quiz/names")
     @ResponseBody
