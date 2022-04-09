@@ -55,6 +55,7 @@ public class AnswerServiceImpl implements AnswerService {
         int incorrectAns = 0;
         boolean answerReadyToSend;
         boolean needToBeCleared;
+        int loopedNum = 0;
 
         List<Answer> answers = answerRepository.getAllAnsById(id);
         List<Answer> answersToSend = new ArrayList<>();
@@ -92,9 +93,15 @@ public class AnswerServiceImpl implements AnswerService {
                         }
                     }
                 }
+
                 if(!needToBeCleared){
                     answerReadyToSend = true;
-                }else{
+                }
+                //check if aren't already saved all answers
+                else if(loopedNum > 999){
+                    break;
+                }else {
+                    loopedNum++;    //protection if all answers already saved and loop still go
                     answersToSend.clear();
                     correctAns = 0;
                     incorrectAns = 0;
@@ -104,9 +111,7 @@ public class AnswerServiceImpl implements AnswerService {
                 answerReadyToSend = true;
             }
 
-            //check if aren't already saved all answers
-            //if(user.getAnswerSet(). == )
-        } while (!answerReadyToSend);
+        } while (!answerReadyToSend );
 
         //add new used answers to database
         for (Answer ansToAdd : answersToSend) {
