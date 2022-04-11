@@ -131,10 +131,19 @@ public class AnswerServiceImpl implements AnswerService {
         }
     }
 
+    @Override
+    public List<AnswerDto> getByDifficulty(long id, int difficulty) {
+        List<Answer> answers = answerRepository.getAllAnsById(id);
+        List<Answer> answerList = answers.stream().filter(a -> a.getDifficulty() == difficulty)
+                .collect(Collectors.toList());
+        return answerList.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
     private AnswerDto convertToDto(Answer answer) {
         AnswerDto answerDto = modelMapper.map(answer, AnswerDto.class);
         answerDto.setContent(answer.getContent());
         answerDto.setId(answer.getId());
+        answerDto.setDifficulty((answer.getDifficulty()));
         return answerDto;
     }
 

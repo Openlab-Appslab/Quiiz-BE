@@ -10,4 +10,5 @@ public class AnswerDto {
     private long id;
     private String content;
     private boolean correct;
+    private int difficulty;
 }

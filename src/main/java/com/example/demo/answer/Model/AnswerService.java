@@ -11,4 +11,6 @@ public interface AnswerService {
     List<AnswerDto> getRandom(long id);
 
     boolean getAnswer(long id);
+
+    List<AnswerDto> getByDifficulty(long id, int difficulty);
 }
