@@ -21,6 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .mvcMatchers("/register").permitAll()
+                .mvcMatchers("/quiz/names").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
