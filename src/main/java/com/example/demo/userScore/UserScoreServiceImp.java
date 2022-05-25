@@ -58,9 +58,9 @@ public class UserScoreServiceImp implements UserScoreService {
 
     private UserScoreDto convertToDto(UserScore userScore){
         UserScoreDto userScoreDto = modelMapper.map(userScore, UserScoreDto.class);
-        userScoreDto.setUser(userScore.getUser());
+        userScoreDto.setUserName(userScore.getUser().getUsername());
         userScoreDto.setScore(userScore.getScore());
-        userScoreDto.setQuiz(userScore.getQuiz());
+        userScoreDto.setQuizName(userScore.getQuiz().getName());
         return userScoreDto;
     }
 }

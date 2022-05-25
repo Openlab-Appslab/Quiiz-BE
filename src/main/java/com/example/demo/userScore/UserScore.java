@@ -19,11 +19,9 @@ public class UserScore {
     long id;
     int score;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     User user;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Quiz quiz;
 }

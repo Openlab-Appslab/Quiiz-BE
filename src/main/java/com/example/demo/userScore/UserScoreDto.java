@@ -10,6 +10,6 @@ import lombok.Setter;
 public class UserScoreDto {
 
     int score;
-    User user;
-    Quiz quiz;
+    String userName;
+    String quizName;
 }
