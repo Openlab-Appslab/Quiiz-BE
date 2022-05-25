@@ -22,13 +22,14 @@ public class Quiz {
     @Id
     private String name;
 
+    private String description;
+
+    private boolean IsFavorite;
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     @JoinColumn(name = "quiz_id")
     private List<Question> questionList = new ArrayList<>();
-
-//    @OneToMany
-//    List<UserScore> quizIds;
 }

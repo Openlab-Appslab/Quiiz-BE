@@ -53,4 +53,11 @@ public class QuizController {
     public List<QuestionDto> getQuestionForQuiz(@PathVariable String quizId){
         return questionService.getRandomQuestionsForQuiz(quizId);
     }
+
+    //GET all quizzes
+    @GetMapping("/allQuizzes")
+    @ResponseBody
+    public List<QuizDto> getAllQuizzes(){
+        return quizService.readQuizzes();
+    }
  }
