@@ -60,4 +60,10 @@ public class QuizController {
     public List<QuizDto> getAllQuizzes(){
         return quizService.readQuizzes();
     }
+
+    @PutMapping("/setFavourite")
+    @ResponseBody
+    public void setFavorite(@RequestBody Quiz quiz){
+        quizService.setFavorite(quiz);
+    }
  }

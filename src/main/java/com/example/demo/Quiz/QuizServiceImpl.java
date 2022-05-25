@@ -56,6 +56,15 @@ public class QuizServiceImpl implements QuizService {
         return quizRepository.getQuizName(quizName);
     }
 
+    @Override
+    public void setFavorite(Quiz quiz) {
+        if(quiz.isFavourite())
+        quiz.setFavourite(false);
+        else
+            quiz.setFavourite(true);
+        saveQuiz(quiz);
+    }
+
     private QuizDto convertToDto(Quiz quiz){
         QuizDto quizDto = modelMapper.map(quiz, QuizDto.class);
         quizDto.setName(quiz.getName());

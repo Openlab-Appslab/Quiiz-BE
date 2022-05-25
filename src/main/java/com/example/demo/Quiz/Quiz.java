@@ -24,7 +24,7 @@ public class Quiz {
 
     private String description;
 
-    private boolean IsFavorite;
+    private boolean favourite;
 
     @OneToMany(
             cascade = CascadeType.ALL,
