@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/score")
+@CrossOrigin("http://localhost:4200")
 public class ScoreController {
 
     private final UserService userService;

@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping
+@CrossOrigin("http://localhost:4200")
 public class QuizController {
 
     QuizService quizService;
@@ -48,7 +49,7 @@ public class QuizController {
         return quizService.getAllQuizNames();
     }
 
-    @CrossOrigin("http://localhost:4200/quiz/{quizId}")
+    @CrossOrigin("http://localhost:4200")
     @GetMapping("/quiz/{quizId}")
     @ResponseBody
     public List<QuestionDto> getQuestionForQuiz(@PathVariable String quizId){
