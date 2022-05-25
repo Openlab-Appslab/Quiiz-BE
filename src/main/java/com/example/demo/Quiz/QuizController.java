@@ -48,6 +48,7 @@ public class QuizController {
         return quizService.getAllQuizNames();
     }
 
+    @CrossOrigin("http://localhost:8080/quiz/{quizId}")
     @GetMapping("/quiz/{quizId}")
     @ResponseBody
     public List<QuestionDto> getQuestionForQuiz(@PathVariable String quizId){
