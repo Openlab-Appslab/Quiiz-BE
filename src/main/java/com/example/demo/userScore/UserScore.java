@@ -2,6 +2,8 @@ package com.example.demo.userScore;
 
 import com.example.demo.Quiz.Quiz;
 import com.example.demo.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,9 +19,11 @@ public class UserScore {
     long id;
     int score;
 
-    @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     User user;
 
-    @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Quiz quiz;
 }
