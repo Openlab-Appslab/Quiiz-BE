@@ -15,4 +15,6 @@ public class QuizDto {
     private String name;
 
     private List<QuestionDto> questionList;
+
+    private boolean favourite;
 }
