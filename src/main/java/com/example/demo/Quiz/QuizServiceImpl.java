@@ -65,6 +65,7 @@ public class QuizServiceImpl implements QuizService {
         QuizDto quizDto = modelMapper.map(quiz, QuizDto.class);
         quizDto.setName(quiz.getName());
         quizDto.setFavourite(quiz.isFavourite());
+        quizDto.setDescription(quiz.getDescription());
         return quizDto;
     }
 }
