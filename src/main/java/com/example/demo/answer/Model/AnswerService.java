@@ -12,5 +12,5 @@ public interface AnswerService {
 
     boolean getAnswer(long id);
 
-    List<AnswerDto> getByDifficulty(long id, int difficulty);
+    List<AnswerDto> getByDifficulty(long id);
 }

@@ -43,9 +43,9 @@ public class AnswerController {
         return answerService.getAnswer(answerId);
     }
 
-    @GetMapping("/difficulty/{questionId}/{difficulty}")
+    @GetMapping("/difficulty/{id}")
     @ResponseBody
-    public List<AnswerDto> getAnswersByDifficulty(@PathVariable long questionId, @PathVariable int difficulty){
-        return answerService.getByDifficulty(questionId, difficulty);
+    public List<AnswerDto> getAnswersByDifficulty(@PathVariable long id){
+        return answerService.getByDifficulty(id);
     }
 }

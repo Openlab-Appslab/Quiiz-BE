@@ -4,6 +4,7 @@ import com.example.demo.answer.Answer;
 import com.example.demo.userScore.UserScore;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -24,6 +25,9 @@ public class User {
     private String username;
     private String password;
     private long score;
+
+    @Column(columnDefinition = "integer default 1")
+    private int skill;
 
     @ManyToMany
     @JoinTable(

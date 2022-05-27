@@ -8,4 +8,5 @@ import lombok.Setter;
 public class UserDto {
     String name;
     long score;
+    int skill;
 }
