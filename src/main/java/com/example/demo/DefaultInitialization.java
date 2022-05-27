@@ -19,7 +19,7 @@ public class DefaultInitialization implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        this.createAndPersistUser("marek", "marek123");
+        //this.createAndPersistUser("marek", "marek123");
         //this.createAndPersistUser("adko", "adko1234");
     }
 
