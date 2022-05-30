@@ -16,7 +16,5 @@ public class QuizDto {
 
     private String description;
 
-    private List<QuestionDto> questionList;
-
     private boolean favourite;
 }
