@@ -132,8 +132,8 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public List<AnswerDto> getByDifficulty(long id) {
-        List<Answer> answers = answerRepository.getAllAnsById(id);
+    public List<AnswerDto> getByDifficulty(long questionId) {
+        List<Answer> answers = answerRepository.getAllAnsById(questionId);
         List<Answer> answerList = answers.stream().filter(a -> a.getDifficulty() == getCurrentUser().getSkill())
                 .collect(Collectors.toList());
         return answerList.stream().map(this::convertToDto).collect(Collectors.toList());

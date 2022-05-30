@@ -12,4 +12,7 @@ public interface QuestionService {
     List<QuestionDto> findAll();
 
     List<QuestionDto> getRandomQuestionsForQuiz(String quizId);
+
+    List<QuestionDto> getQuestionsByDifficulty(String quizId);
+
 }

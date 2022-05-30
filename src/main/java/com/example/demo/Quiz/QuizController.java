@@ -56,6 +56,13 @@ public class QuizController {
         return questionService.getRandomQuestionsForQuiz(quizId);
     }
 
+    //GET quizzes for skill of logged user
+    @GetMapping("/quiz/difficulty/{quizId}")
+    @ResponseBody
+    public List<QuestionDto> getQuestionsByDifficulty(@PathVariable String quizId){
+        return questionService.getQuestionsByDifficulty(quizId);
+    }
+
     //GET all quizzes
     @GetMapping("/allQuizzes")
     @ResponseBody

@@ -76,6 +76,16 @@ public class QuestionServiceImpl implements QuestionService {
         }).collect(Collectors.toList());
     }
 
+    @Override
+    public List<QuestionDto> getQuestionsByDifficulty(String quizId) {
+        List<Question> questions = questionRepository.getAllQuestionsById(quizId);
+
+        return questions.stream().map(q -> {
+            QuestionDto question = convertToDto(q);
+            question.setAnswerList(answerService.getByDifficulty(q.getId()));
+            return question;
+        }).collect(Collectors.toList());
+    }
 
 
     private QuestionDto convertToDto(Question question){
