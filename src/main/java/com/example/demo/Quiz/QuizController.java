@@ -72,7 +72,7 @@ public class QuizController {
 
     @PutMapping("/setFavourite")
     @ResponseBody
-    public void setFavorite(@RequestBody Quiz quiz){
-        quizService.setFavorite(quiz);
+    public void setFavorite(@RequestBody String quizId){
+        quizService.setFavorite(quizId);
     }
  }

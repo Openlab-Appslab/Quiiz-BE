@@ -17,5 +17,5 @@ public interface QuizService {
 
     String getQuizName(String quizName);
 
-    void setFavorite(Quiz quiz);
+    void setFavorite(String quizId);
 }

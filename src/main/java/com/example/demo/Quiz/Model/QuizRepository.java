@@ -17,5 +17,5 @@ public interface QuizRepository extends JpaRepository<Quiz, String> {
     String getQuizName(@Param("id") String id);
 
     @Query("SELECT q FROM Quiz q WHERE q.name = :id")
-    String getQuiz(@Param("id") Quiz quiz);
+    Quiz getQuiz(@Param("id") String quizId);
 }

@@ -57,8 +57,13 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public void setFavorite(Quiz quiz) {
-        saveQuiz(quiz);
+    public void setFavorite(String quizId) {
+        Quiz quiz = quizRepository.getQuiz(quizId);
+        if(quiz.isFavourite())
+        quiz.setFavourite(false);
+        else
+        quiz.setFavourite(true);
+        quizRepository.save(quiz);
     }
 
     private QuizDto convertToDto(Quiz quiz){
