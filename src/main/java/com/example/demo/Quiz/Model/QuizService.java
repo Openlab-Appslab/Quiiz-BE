@@ -1,7 +1,5 @@
 package com.example.demo.Quiz.Model;
 
-import com.example.demo.Question.Question;
-import com.example.demo.Question.QuestionDto;
 import com.example.demo.Quiz.Quiz;
 import com.example.demo.Quiz.QuizDto;
 
@@ -17,7 +15,7 @@ public interface QuizService {
 
     String getQuizName(String quizName);
 
-    void favoriteFalse(Quiz quiz);
-    void favoriteTrue(Quiz quiz);
+    void favoriteFalse(String quizId);
+    void favoriteTrue(String quizId);
 
 }
