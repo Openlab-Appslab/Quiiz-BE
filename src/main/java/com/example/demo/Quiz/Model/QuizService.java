@@ -17,7 +17,7 @@ public interface QuizService {
 
     String getQuizName(String quizName);
 
-    void favoriteFalse(String quizId);
-    void favoriteTrue(String quizId);
+    void favoriteFalse(Quiz quiz);
+    void favoriteTrue(Quiz quiz);
 
 }

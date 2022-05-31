@@ -57,17 +57,17 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public void favoriteFalse(String quizId) {
-        Quiz quiz = quizRepository.getQuiz(quizId);
-        quiz.setFavourite(false);
-        quizRepository.save(quiz);
+    public void favoriteFalse(Quiz quiz) {
+        Quiz quiz02 = quizRepository.getQuiz(quiz.getName());
+        quiz02.setFavourite(false);
+        quizRepository.save(quiz02);
     }
 
     @Override
-    public void favoriteTrue(String quizId) {
-        Quiz quiz = quizRepository.getQuiz(quizId);
-        quiz.setFavourite(true);
-        quizRepository.save(quiz);
+    public void favoriteTrue(Quiz quiz) {
+        Quiz quiz02 = quizRepository.getQuiz(quiz.getName());
+        quiz02.setFavourite(true);
+        quizRepository.save(quiz02);
     }
 
     private QuizDto convertToDto(Quiz quiz){
