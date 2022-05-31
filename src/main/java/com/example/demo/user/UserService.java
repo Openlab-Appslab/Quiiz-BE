@@ -10,4 +10,6 @@ public interface UserService {
     List<UserDto> getUsers();
     UserDto setScoreOfLoggedUser(long score);
     void setSkill(int skill);
+
+    Integer getSkill();
 }

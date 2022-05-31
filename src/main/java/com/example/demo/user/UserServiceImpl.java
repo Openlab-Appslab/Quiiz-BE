@@ -78,6 +78,13 @@ public class UserServiceImpl implements UserService {
         convertToDto(repository.save(user));
     }
 
+    @Override
+    public Integer getSkill() {
+        User user = this.getCurrentUser();
+
+        return user.getSkill();
+    }
+
 //    @Override
 //    public User register(User user) throws UserAlreadyExistException {
 //        return null;

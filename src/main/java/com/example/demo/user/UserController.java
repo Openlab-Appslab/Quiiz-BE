@@ -41,6 +41,9 @@ public class UserController {
         userService.setSkill(skill);
     }
 
-
+    @GetMapping("/userSkill")
+    public Integer getSkill(){
+        return userService.getSkill();
+    }
 
 }
