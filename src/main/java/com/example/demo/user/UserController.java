@@ -12,9 +12,12 @@ public class UserController {
 
     UserService userService;
 
+    EmailSenderService emailSenderService;
+
     @Autowired
-    public void setUserService(UserService userService) {
+    public UserController(UserService userService, EmailSenderService emailSenderService) {
         this.userService = userService;
+        this.emailSenderService = emailSenderService;
     }
 
     //get username and score for ranking the best users
@@ -33,6 +36,8 @@ public class UserController {
     @PostMapping("/register")
     public void addUser(@RequestBody User user){
         userService.addUser(user);
+
+        emailSenderService.sendEmail(user.getEmail(), "Quiz", "Potvrďte svoj účet");
     }
 
 
