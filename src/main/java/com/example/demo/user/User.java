@@ -29,6 +29,8 @@ public class User {
     @Column(columnDefinition = "integer default 1")
     private int skill;
 
+    private String email;
+
     @ManyToMany
     @JoinTable(
             name = "sent_answer",

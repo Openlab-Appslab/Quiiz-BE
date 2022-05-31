@@ -9,4 +9,5 @@ public class UserDto {
     String name;
     long score;
     int skill;
+    String email;
 }

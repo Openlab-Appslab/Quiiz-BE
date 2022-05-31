@@ -70,9 +70,15 @@ public class QuizController {
         return quizService.readQuizzes();
     }
 
-    @PutMapping("/setFavourite")
+    @PutMapping("/setFavourite/true")
     @ResponseBody
-    public void setFavorite(@RequestBody String quizId){
-        quizService.setFavorite(quizId);
+    public void favoriteFalse(@RequestBody String quizId){
+        quizService.favoriteTrue(quizId);
+    }
+
+    @PutMapping("/setFavourite/false")
+    @ResponseBody
+    public void favoriteTrue(@RequestBody String quizId){
+        quizService.favoriteFalse(quizId);
     }
  }
