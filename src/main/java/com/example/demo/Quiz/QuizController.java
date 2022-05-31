@@ -69,16 +69,14 @@ public class QuizController {
     public List<QuizDto> getAllQuizzes(){
         return quizService.readQuizzes();
     }
-    @CrossOrigin("http://localhost:4200")
-    @PutMapping("/setFavourite/true")
+    @PutMapping("/setFavourite/true/{quizId}")
     @ResponseBody
-    public void favoriteFalse(@RequestBody String quizId){
+    public void favoriteFalse(@PathVariable String quizId){
         quizService.favoriteTrue(quizId);
     }
-    @CrossOrigin("http://localhost:4200")
-    @PutMapping("/setFavourite/false")
+    @PutMapping("/setFavourite/false/{quizId}")
     @ResponseBody
-    public void favoriteTrue(@RequestBody String quizId){
+    public void favoriteTrue(@PathVariable String quizId){
         quizService.favoriteFalse(quizId);
     }
  }

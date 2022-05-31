@@ -31,6 +31,8 @@ public class User {
 
     private String email;
 
+    private boolean acceptedRegistration;
+
     @ManyToMany
     @JoinTable(
             name = "sent_answer",

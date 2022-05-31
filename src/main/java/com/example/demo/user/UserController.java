@@ -35,6 +35,7 @@ public class UserController {
         userService.addUser(user);
     }
 
+
     @PutMapping("/userSkill/{skill}")
     public void setSkill(@PathVariable int skill){
         userService.setSkill(skill);
