@@ -23,7 +23,7 @@ public class EmailSenderService {
     public void sendHtmlMail(String to, String subject,String emailtemplate) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-//mimeMessage.setContent(htmlMsg, "text/html"); / Use this or below line /
+        //mimeMessage.setContent(emailtemplate, "text/html"); // Use this or below line
         helper.setText(emailtemplate, true); // Use this or above line.
         helper.setTo(to);
         helper.setSubject(subject);

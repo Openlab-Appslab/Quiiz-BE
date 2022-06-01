@@ -21,9 +21,10 @@ public class User {
     private String password;
     private long score;
 
-    @Column(columnDefinition = "integer default 1")
+    @Column(columnDefinition="tinyint(1) default 1")
     private int skill;
 
+    @Column(unique = true)
     private String email;
 
     private boolean verifyRegistration;
