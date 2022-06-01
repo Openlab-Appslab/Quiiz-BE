@@ -24,6 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/quiz/names").permitAll()
                 .mvcMatchers("/allQuizzes").permitAll()
                 .mvcMatchers("/api/auth/verify/{userName}").permitAll()
+                .mvcMatchers("/password/change/{email}").permitAll()
+                .mvcMatchers("/password/recovery/{email}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

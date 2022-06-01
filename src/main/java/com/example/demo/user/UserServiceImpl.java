@@ -94,6 +94,12 @@ public class UserServiceImpl implements UserService {
         return repository.save(user);
     }
 
+    @Override
+    public void changePassword(String email) {
+        User user = repository.getUserByEmail(email);
+
+    }
+
 //    @Override
 //    public User register(User user) throws UserAlreadyExistException {
 //        return null;

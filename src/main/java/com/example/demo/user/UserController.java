@@ -73,6 +73,32 @@ public class UserController {
         emailSenderService.send(message);
     }
 
+    @GetMapping("/password/change/{email}")
+    public void passwordRecovery(@PathVariable String email) throws MessagingException, UnsupportedEncodingException {
+        String toAddress = email;
+        String fromAddress = "pavolhodas4@gmail.com";
+        String senderName = "Quiz";
+        String subject = "Zmena hesla";
+        String content = "Zmente si heslo:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">ZMENIŤ HESLO</a></h3>"
+                + "Ďakujeme,<br>"
+                + "Guiz.";
+
+        MimeMessage message = emailSenderService.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        String passwordRecoveryURL = "https://apps-lapp-server.herokuapp.com" + "/api/auth/password/recovery/" + email;
+
+        content = content.replace("[[URL]]", passwordRecoveryURL);
+
+        helper.setText(content, true);
+
+        emailSenderService.send(message);
+    }
     @PutMapping("/api/auth/verify/{userName}")
     public void sendEmail(@PathVariable String userName){
         userService.verifyUser(userName);

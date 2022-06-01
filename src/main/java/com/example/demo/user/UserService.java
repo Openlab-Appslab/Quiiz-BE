@@ -13,4 +13,6 @@ public interface UserService {
     Integer getSkill();
 
     User verifyUser(String userName);
+
+    void changePassword(String email);
 }
