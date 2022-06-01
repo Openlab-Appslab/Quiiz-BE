@@ -1,7 +1,5 @@
 package com.example.demo.user;
 
-import com.example.demo.answer.Answer;
-import com.example.demo.answer.Model.AnswerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,14 +8,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private EmailSenderService emailSenderService;
 
     private final UserRepository repository;
 
@@ -25,8 +23,11 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
+    @Autowired
+    public UserServiceImpl(EmailSenderService emailSenderService, UserRepository repository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+        this.emailSenderService = emailSenderService;
         this.repository = repository;
+        this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -44,6 +45,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(encodedPassword);
             return this.repository.save(user);
         }
+
         return user;
     }
 

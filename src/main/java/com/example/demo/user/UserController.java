@@ -1,9 +1,13 @@
 package com.example.demo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 @RestController
 @RequestMapping
@@ -12,9 +16,12 @@ public class UserController {
 
     UserService userService;
 
+    EmailSenderService emailSenderService;
+
     @Autowired
-    public void setUserService(UserService userService) {
+    public UserController(UserService userService, EmailSenderService emailSenderService) {
         this.userService = userService;
+        this.emailSenderService = emailSenderService;
     }
 
     //get username and score for ranking the best users
@@ -33,6 +40,11 @@ public class UserController {
     @PostMapping("/register")
     public void addUser(@RequestBody User user){
         userService.addUser(user);
+        String text = readEmailTemplate();
+
+        text = text.replaceFirst("NAME", user.getUsername());
+
+        emailSenderService.sendEmail(user.getEmail(), "Quiz",  text);
     }
 
     @GetMapping("/email")
@@ -49,5 +61,23 @@ public class UserController {
     public Integer getSkill(){
         return userService.getSkill();
     }
+
+    private String readEmailTemplate(){
+        StringBuilder emailTemplate = new StringBuilder();
+        ClassPathResource resource = new ClassPathResource("emailtemplate.html");
+        Scanner scanner = null;
+        try {
+            File email = resource.getFile();
+            scanner = new Scanner(email);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        while(scanner.hasNextLine()){
+            emailTemplate.append(scanner.nextLine());
+        }
+        scanner.close();
+        return emailTemplate.toString();
+    }
+
 
 }

@@ -1,14 +1,11 @@
 package com.example.demo.Quiz;
 
-import com.example.demo.Question.Question;
-import com.example.demo.Question.QuestionDto;
 import com.example.demo.Quiz.Model.QuizRepository;
 import com.example.demo.Quiz.Model.QuizService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,16 +55,16 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public void favoriteFalse(String quizId) {
-        Quiz quiz = quizRepository.getQuiz(quizId);
-        quiz.setFavourite(false);
-        quizRepository.save(quiz);
+        Quiz quiz02 = quizRepository.getQuiz(quizId);
+        quiz02.setFavourite(false);
+        quizRepository.save(quiz02);
     }
 
     @Override
     public void favoriteTrue(String quizId) {
-        Quiz quiz = quizRepository.getQuiz(quizId);
-        quiz.setFavourite(true);
-        quizRepository.save(quiz);
+        Quiz quiz02 = quizRepository.getQuiz(quizId);
+        quiz02.setFavourite(true);
+        quizRepository.save(quiz02);
     }
 
     private QuizDto convertToDto(Quiz quiz){
