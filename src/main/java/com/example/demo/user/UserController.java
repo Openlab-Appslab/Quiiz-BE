@@ -31,7 +31,7 @@ public class UserController {
 
     //get username and score for ranking the best users
     @GetMapping("/users")
-    public List<UserDto> getUsers() {
+    public List<LoginUserDto> getUsers() {
         return userService.getUsers();
     }
 
@@ -74,7 +74,7 @@ public class UserController {
     }
 
     @GetMapping("/password/change/{email}")
-    public void passwordRecovery(@PathVariable String email) throws MessagingException, UnsupportedEncodingException {
+    public void passwordChange(@PathVariable String email) throws MessagingException, UnsupportedEncodingException {
         String toAddress = email;
         String fromAddress = "pavolhodas4@gmail.com";
         String senderName = "Quiz";
@@ -103,6 +103,8 @@ public class UserController {
     public void sendEmail(@PathVariable String userName){
         userService.verifyUser(userName);
     }
+
+//
 
     @PutMapping("/userSkill/{skill}")
     public void setSkill(@PathVariable int skill){

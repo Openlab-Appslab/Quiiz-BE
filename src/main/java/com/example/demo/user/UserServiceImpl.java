@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getUsers() {
-        return repository.getAllUsers().stream().map(this::convertToDto).collect(Collectors.toList());
+    public List<LoginUserDto> getUsers() {
+        return repository.getAllUsers().stream().map(this::convertToDtoLogin).collect(Collectors.toList());
     }
 
     @Override
@@ -110,6 +110,13 @@ public class UserServiceImpl implements UserService {
         userDto.setName(user.getUsername());
         userDto.setScore(user.getScore());
         return userDto;
+    }
+
+    private LoginUserDto convertToDtoLogin(User user){
+        LoginUserDto loginuserDto = modelMapper.map(user, LoginUserDto.class);
+        loginuserDto.setName(user.getUsername());
+        loginuserDto.setScore(user.getScore());
+        return loginuserDto;
     }
 
 

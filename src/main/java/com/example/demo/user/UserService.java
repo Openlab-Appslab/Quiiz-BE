@@ -7,7 +7,7 @@ public interface UserService {
     User addUser(User user);
     Optional<User> getUserByUsername(String username);
     User updateUser(User user);
-    List<UserDto> getUsers();
+    List<LoginUserDto> getUsers();
     UserDto setScoreOfLoggedUser(long score);
     void setSkill(int skill);
     Integer getSkill();
