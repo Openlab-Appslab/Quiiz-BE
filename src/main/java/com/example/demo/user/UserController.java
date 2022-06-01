@@ -72,8 +72,8 @@ public class UserController {
 
         emailSenderService.send(message);
     }
-
-    @GetMapping("/password/change/{email}")
+    String email = "";
+    @GetMapping("/password/forgot/{email}")
     public void passwordChange(@PathVariable String email) throws MessagingException, UnsupportedEncodingException {
         String toAddress = email;
         String fromAddress = "pavolhodas4@gmail.com";
@@ -84,6 +84,7 @@ public class UserController {
                 + "Ďakujeme,<br>"
                 + "Guiz.";
 
+        this.email = email;
         MimeMessage message = emailSenderService.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
@@ -104,7 +105,10 @@ public class UserController {
         userService.verifyUser(userName);
     }
 
-//
+    @PutMapping("/api/auth/change/password/{password}")
+    public void changePassword(@PathVariable String password){
+        userService.changePassword(password, this.email);
+    }
 
     @PutMapping("/userSkill/{skill}")
     public void setSkill(@PathVariable int skill){
