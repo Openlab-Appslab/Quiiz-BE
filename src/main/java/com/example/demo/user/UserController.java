@@ -73,9 +73,9 @@ public class UserController {
         emailSenderService.send(message);
     }
 
-    @GetMapping("/email")
-    public void sendEmail(@RequestBody User user){
-        userService.getUserByUsername(user.getUsername());
+    @PutMapping("/api/auth/verify/{userName}")
+    public void sendEmail(@PathVariable String userName){
+        userService.verifyUser(userName);
     }
 
     @PutMapping("/userSkill/{skill}")

@@ -11,4 +11,6 @@ public interface UserService {
     UserDto setScoreOfLoggedUser(long score);
     void setSkill(int skill);
     Integer getSkill();
+
+    User verifyUser(String userName);
 }

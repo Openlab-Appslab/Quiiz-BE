@@ -87,6 +87,13 @@ public class UserServiceImpl implements UserService {
         return user.getSkill();
     }
 
+    @Override
+    public User verifyUser(String userName) {
+        User user = repository.getUserByName(userName);
+        user.setVerifyRegistration(true);
+        return repository.save(user);
+    }
+
 //    @Override
 //    public User register(User user) throws UserAlreadyExistException {
 //        return null;

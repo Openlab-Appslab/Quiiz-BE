@@ -23,6 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/register").permitAll()
                 .mvcMatchers("/quiz/names").permitAll()
                 .mvcMatchers("/allQuizzes").permitAll()
+                .mvcMatchers("/api/auth/verify/{userName}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

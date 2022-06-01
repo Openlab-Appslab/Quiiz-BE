@@ -1,15 +1,10 @@
 package com.example.demo.user;
 
 import com.example.demo.answer.Answer;
-import com.example.demo.userScore.UserScore;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Value;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,7 +26,7 @@ public class User {
 
     private String email;
 
-    private boolean acceptedRegistration;
+    private boolean verifyRegistration;
 
     @ManyToMany
     @JoinTable(
