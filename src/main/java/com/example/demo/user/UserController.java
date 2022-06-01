@@ -2,10 +2,15 @@ package com.example.demo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,10 +21,10 @@ public class UserController {
 
     UserService userService;
 
-    EmailSenderService emailSenderService;
+    JavaMailSender emailSenderService;
 
     @Autowired
-    public UserController(UserService userService, EmailSenderService emailSenderService) {
+    public UserController(UserService userService, JavaMailSender emailSenderService) {
         this.userService = userService;
         this.emailSenderService = emailSenderService;
     }
@@ -38,13 +43,34 @@ public class UserController {
 
     //save new user to db
     @PostMapping("/register")
-    public void addUser(@RequestBody User user){
+    public void addUser(@RequestBody User user) throws MessagingException, UnsupportedEncodingException {
         userService.addUser(user);
-        String text = readEmailTemplate();
+        String toAddress = user.getEmail();
+        String fromAddress = "pavolhodas4@gmail.com";
+        String senderName = "Quiz";
+        String subject = "Potvrdte registraciu";
+        String content = "Ahoj [[name]],<br>"
+                + "Prosím potvrďte registráciu:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "Ďakujeme,<br>"
+                + "Guiz.";
 
-        text = text.replaceFirst("NAME", user.getUsername());
+        MimeMessage message = emailSenderService.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        emailSenderService.sendEmail(user.getEmail(), "Quiz",  text);
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", user.getUsername());
+
+        String verifyURL = "https://apps-lapp-server.herokuapp.com" + "/api/auth/verify/" + user.getUsername();
+
+        content = content.replace("[[URL]]", verifyURL);
+
+        helper.setText(content, true);
+
+        emailSenderService.send(message);
     }
 
     @GetMapping("/email")
