@@ -1,12 +1,9 @@
 package com.example.demo.user;
 
-import com.example.demo.Question.Question;
 import com.example.demo.answer.Answer;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

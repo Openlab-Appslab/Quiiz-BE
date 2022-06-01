@@ -35,6 +35,10 @@ public class UserController {
         userService.addUser(user);
     }
 
+    @GetMapping("/email")
+    public void sendEmail(@RequestBody User user){
+        userService.getUserByUsername(user.getUsername());
+    }
 
     @PutMapping("/userSkill/{skill}")
     public void setSkill(@PathVariable int skill){
