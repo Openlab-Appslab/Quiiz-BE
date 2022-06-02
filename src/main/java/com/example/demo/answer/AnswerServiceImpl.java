@@ -136,6 +136,8 @@ public class AnswerServiceImpl implements AnswerService {
         List<Answer> answers = answerRepository.getAllAnsById(questionId);
         List<Answer> answerList = answers.stream().filter(a -> a.getDifficulty() == getCurrentUser().getSkill())
                 .collect(Collectors.toList());
+
+        Collections.shuffle(answerList);
         return answerList.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
