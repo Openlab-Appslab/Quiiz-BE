@@ -64,7 +64,7 @@ public class UserController {
 
         content = content.replace("[[name]]", user.getUsername());
 
-        String verifyURL = "http://localhost:4200" + "/api/auth/verify/" + user.getUsername();
+        String verifyURL = "http://localhost:8080" + "/api/auth/verify/" + user.getUsername();
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -92,7 +92,7 @@ public class UserController {
         helper.setTo(toAddress);
         helper.setSubject(subject);
 
-        String passwordRecoveryURL = "https://apps-lapp-server.herokuapp.com" + "/api/auth/change/password/{password}" ;
+        String passwordRecoveryURL = "http://localhost:8080" + "/api/auth/password/recovery/" + email;
 
         content = content.replace("[[URL]]", passwordRecoveryURL);
 
@@ -100,10 +100,10 @@ public class UserController {
 
         emailSenderService.send(message);
     }
-//    @PutMapping("/api/auth/verify/{userName}")
-//    public void sendEmail(@PathVariable String userName){
-//        userService.verifyUser(userName);
-//    }
+    @GetMapping("/api/auth/verify/{userName}")
+    public void sendEmail(@PathVariable String userName){
+        userService.verifyUser(userName);
+    }
 
     @PutMapping("/api/auth/change/password/{password}")
     public void changePassword(@PathVariable String password){
