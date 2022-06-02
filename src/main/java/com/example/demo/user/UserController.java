@@ -100,7 +100,7 @@ public class UserController {
 
         emailSenderService.send(message);
     }
-    @PutMapping("/api/auth/verify/{userName}")
+    @GetMapping("/api/auth/verify/{userName}")
     public void sendEmail(@PathVariable String userName){
         userService.verifyUser(userName);
     }
