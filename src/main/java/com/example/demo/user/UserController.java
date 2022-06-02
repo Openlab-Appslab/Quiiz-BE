@@ -64,7 +64,7 @@ public class UserController {
 
         content = content.replace("[[name]]", user.getUsername());
 
-        String verifyURL = "https://apps-lapp-server.herokuapp.com" + "/api/auth/verify/" + user.getUsername();
+        String verifyURL = "http://localhost:8080" + "/api/auth/verify/" + user.getUsername();
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -92,7 +92,7 @@ public class UserController {
         helper.setTo(toAddress);
         helper.setSubject(subject);
 
-        String passwordRecoveryURL = "https://apps-lapp-server.herokuapp.com" + "/api/auth/password/recovery/" + email;
+        String passwordRecoveryURL = "http://localhost:8080" + "/api/auth/password/recovery/" + email;
 
         content = content.replace("[[URL]]", passwordRecoveryURL);
 
