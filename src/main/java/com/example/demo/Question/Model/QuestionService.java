@@ -14,5 +14,4 @@ public interface QuestionService {
     List<QuestionDto> getRandomQuestionsForQuiz(String quizId);
 
     List<QuestionDto> getQuestionsByDifficulty(String quizId);
-
 }

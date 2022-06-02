@@ -5,8 +5,13 @@ import com.example.demo.Question.Model.QuestionService;
 import com.example.demo.Quiz.Model.QuizRepository;
 import com.example.demo.Quiz.Model.QuizService;
 import com.example.demo.answer.Model.AnswerService;
+import com.example.demo.user.User;
+import com.example.demo.user.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +30,12 @@ public class QuestionServiceImpl implements QuestionService {
 
     QuizService quizService;
 
+    UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) {
@@ -68,12 +79,22 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<QuestionDto> getRandomQuestionsForQuiz(String quizId) {
         List<Question> questions = questionRepository.getAllQuestionsById(quizId);
+
+        if(getCurrentUser().getSkill() == 0) {
 // tu pozriet ci uz su ulozene v db vsetky answers k tejto question
-        return questions.stream().map(q -> {
-            QuestionDto question = convertToDto(q);
-            question.setAnswerList(answerService.getRandom(q.getId()));
-            return question;
-        }).collect(Collectors.toList());
+            return questions.stream().map(q -> {
+                QuestionDto question = convertToDto(q);
+                question.setAnswerList(answerService.getRandom(q.getId()));
+                return question;
+            }).collect(Collectors.toList());
+        }
+        else{
+            return questions.stream().map(q -> {
+                QuestionDto question = convertToDto(q);
+                question.setAnswerList(answerService.getByDifficulty(q.getId()));
+                return question;
+            }).collect(Collectors.toList());
+        }
     }
 
     @Override
@@ -93,5 +114,15 @@ public class QuestionServiceImpl implements QuestionService {
         questionDto.setContent(question.getContent());
         questionDto.setId(question.getId());
         return questionDto;
+    }
+
+    private User getCurrentUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        String username = userDetails.getUsername();
+        return this.userService.getUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
 }

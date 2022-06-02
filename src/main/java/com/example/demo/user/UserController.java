@@ -1,18 +1,14 @@
 package com.example.demo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Scanner;
 
 @RestController
 @RequestMapping
@@ -119,23 +115,4 @@ public class UserController {
     public Integer getSkill(){
         return userService.getSkill();
     }
-
-    private String readEmailTemplate(){
-        StringBuilder emailTemplate = new StringBuilder();
-        ClassPathResource resource = new ClassPathResource("emailtemplate.html");
-        Scanner scanner = null;
-        try {
-            File email = resource.getFile();
-            scanner = new Scanner(email);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        while(scanner.hasNextLine()){
-            emailTemplate.append(scanner.nextLine());
-        }
-        scanner.close();
-        return emailTemplate.toString();
-    }
-
-
 }
