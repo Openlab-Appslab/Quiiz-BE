@@ -37,6 +37,7 @@ public class UserController {
         return userService.setScoreOfLoggedUser(userScore);
     }
 
+    String userName = "";
     //save new user to db
     @PostMapping("/register")
     public void addUser(@RequestBody User user) throws MessagingException, UnsupportedEncodingException {
@@ -51,6 +52,7 @@ public class UserController {
                 + "Ďakujeme,<br>"
                 + "Guiz.";
 
+        userName = user.getUsername();
         MimeMessage message = emailSenderService.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
@@ -60,7 +62,7 @@ public class UserController {
 
         content = content.replace("[[name]]", user.getUsername());
 
-        String verifyURL = "http://localhost:8080" + "/api/auth/verify/" + user.getUsername();
+        String verifyURL = "http://localhost:4200" + "/api/auth/verify";
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -98,6 +100,7 @@ public class UserController {
     }
     @GetMapping("/api/auth/verify/{userName}")
     public void sendEmail(@PathVariable String userName){
+        this.userName = userName;
         userService.verifyUser(userName);
     }
 
