@@ -62,7 +62,7 @@ public class UserController {
 
         content = content.replace("[[name]]", user.getUsername());
 
-        String verifyURL = "http://localhost:4200" + "/api/auth/verify";
+        String verifyURL = "http://localhost:4200" + "/verify";
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -90,7 +90,7 @@ public class UserController {
         helper.setTo(toAddress);
         helper.setSubject(subject);
 
-        String passwordRecoveryURL = "http://localhost:8080" + "/api/auth/password/recovery/" + email;
+        String passwordRecoveryURL = "http://localhost:4200" + "/new-password-set";
 
         content = content.replace("[[URL]]", passwordRecoveryURL);
 
@@ -100,7 +100,7 @@ public class UserController {
     }
     @GetMapping("/api/auth/verify/{userName}")
     public void sendEmail(@PathVariable String userName){
-        this.userName = userName;
+        userName = this.userName;
         userService.verifyUser(userName);
     }
 
