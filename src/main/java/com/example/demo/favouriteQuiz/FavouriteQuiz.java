@@ -1,4 +1,4 @@
-package com.example.demo.userScore;
+package com.example.demo.favouriteQuiz;
 
 import com.example.demo.Quiz.Quiz;
 import com.example.demo.user.User;
@@ -10,16 +10,18 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
-public class UserScore {
+public class FavouriteQuiz {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    int score;
+
+    boolean favourite;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     User user;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Quiz quiz;
+
 }

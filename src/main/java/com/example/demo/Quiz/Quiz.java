@@ -1,14 +1,9 @@
 package com.example.demo.Quiz;
 
 import com.example.demo.Question.Question;
-import com.example.demo.userScore.UserScore;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.bytebuddy.matcher.FilterableList;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,4 +27,5 @@ public class Quiz {
     )
     @JoinColumn(name = "quiz_id")
     private List<Question> questionList = new ArrayList<>();
+
 }

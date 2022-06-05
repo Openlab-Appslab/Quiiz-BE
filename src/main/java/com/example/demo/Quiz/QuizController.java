@@ -69,14 +69,14 @@ public class QuizController {
     public List<QuizDto> getAllQuizzes(){
         return quizService.readQuizzes();
     }
-    @PutMapping("/setFavourite/true/{quizId}")
-    @ResponseBody
-    public void favoriteFalse(@PathVariable String quizId){
-        quizService.favoriteTrue(quizId);
-    }
-    @PutMapping("/setFavourite/false/{quizId}")
-    @ResponseBody
-    public void favoriteTrue(@PathVariable String quizId){
-        quizService.favoriteFalse(quizId);
-    }
+//    @PutMapping("/setFavourite/true/{quizId}")
+//    @ResponseBody
+//    public void favoriteFalse(@PathVariable String quizId){
+//        quizService.favoriteTrue(quizId);
+//    }
+//    @PutMapping("/setFavourite/false/{quizId}")
+//    @ResponseBody
+//    public void favoriteTrue(@PathVariable String quizId){
+//        quizService.favoriteFalse(quizId);
+//    }
  }

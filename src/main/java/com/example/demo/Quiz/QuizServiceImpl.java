@@ -2,8 +2,14 @@ package com.example.demo.Quiz;
 
 import com.example.demo.Quiz.Model.QuizRepository;
 import com.example.demo.Quiz.Model.QuizService;
+import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
+import com.example.demo.user.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +24,18 @@ public class QuizServiceImpl implements QuizService {
 
     ModelMapper modelMapper;
 
+    UserService userService;
+
+    UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
     @Autowired
     public void setQuizRepository(QuizRepository quizRepository) {
         this.quizRepository = quizRepository;
@@ -56,12 +74,14 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public void favoriteFalse(String quizId) {
         Quiz quiz02 = quizRepository.getQuiz(quizId);
-        quiz02.setFavourite(false);
-        quizRepository.save(quiz02);
+        User user = getCurrentUser();
+        //user.setQuiz(quizRepository.getQuiz(quizId));
+        userRepository.save(user);
     }
 
     @Override
     public void favoriteTrue(String quizId) {
+        User user = getCurrentUser();
         Quiz quiz02 = quizRepository.getQuiz(quizId);
         quiz02.setFavourite(true);
         quizRepository.save(quiz02);
@@ -73,5 +93,15 @@ public class QuizServiceImpl implements QuizService {
         quizDto.setFavourite(quiz.isFavourite());
         quizDto.setDescription(quiz.getDescription());
         return quizDto;
+    }
+
+    private User getCurrentUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        String username = userDetails.getUsername();
+        return this.userService.getUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
 }
