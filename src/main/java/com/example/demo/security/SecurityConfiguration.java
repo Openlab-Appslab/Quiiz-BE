@@ -26,6 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/api/auth/verify/{userName}").permitAll()
                 .mvcMatchers("/password/forgot/{email}").permitAll()
                 .mvcMatchers("/api/auth/change/password/{password}").permitAll()
+                .mvcMatchers("/support/{name}/{text}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
