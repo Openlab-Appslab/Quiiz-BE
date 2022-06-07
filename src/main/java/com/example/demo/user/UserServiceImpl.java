@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void supportEmail(String name, String text) throws MessagingException, UnsupportedEncodingException {
-        String toAddress = "pavolhodas4@gmail.com";
+        String toAddress = "martin.21.krause@gmail.com";
         String fromAddress = "pavolhodas4@gmail.com";
         String senderName = "Quiz";
         String subject = "Nová pripomienka";
