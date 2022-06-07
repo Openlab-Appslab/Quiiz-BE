@@ -42,8 +42,10 @@ public class UserScoreServiceImp implements UserScoreService {
     }
 
     @Override
-    public List<UserScoreDto> getAllScore() {
-        return userScoreRepository.getAllScore().stream().map(this::convertToDto).collect(Collectors.toList());
+    public Integer getAllScore() {
+        User user = getCurrentUser();
+
+        return userScoreRepository.getScoreForUser(user.getId()).stream().reduce(0, Integer::sum);
     }
 
     private User getCurrentUser() {

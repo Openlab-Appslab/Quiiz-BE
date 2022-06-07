@@ -26,7 +26,7 @@ public class UserScoreController {
 
     //GET all scores for all users and quizzes
     @GetMapping("/score/all")
-    public List<UserScoreDto> getAllScore(){
+    public Integer getAllScore(){
         return userScoreService.getAllScore();
     }
 }

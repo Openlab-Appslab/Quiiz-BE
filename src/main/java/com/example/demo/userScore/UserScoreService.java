@@ -8,5 +8,5 @@ import java.util.List;
 public interface UserScoreService {
     UserScore saveScore(Quiz quiz, Integer score);
 
-    List<UserScoreDto> getAllScore();
+    Integer getAllScore();
 }
