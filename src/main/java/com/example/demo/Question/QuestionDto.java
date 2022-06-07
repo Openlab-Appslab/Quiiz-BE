@@ -13,7 +13,6 @@ public class QuestionDto {
     private long id;
     private String content;
     private List<AnswerDto> answerList;
-    private String quizName;
     public QuestionDto(String content) {
         this.content = content;
     }

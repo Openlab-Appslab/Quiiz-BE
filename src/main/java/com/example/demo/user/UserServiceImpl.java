@@ -2,12 +2,17 @@ package com.example.demo.user;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private EmailSenderService emailSenderService;
+    private JavaMailSender emailSenderService;
 
     private final UserRepository repository;
 
@@ -24,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(EmailSenderService emailSenderService, UserRepository repository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(JavaMailSender emailSenderService, UserRepository repository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.emailSenderService = emailSenderService;
         this.repository = repository;
         this.modelMapper = modelMapper;
@@ -103,6 +108,31 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encodedPassword);
         repository.save(user);
 
+    }
+
+    @Override
+    public void supportEmail(String name, String text) throws MessagingException, UnsupportedEncodingException {
+        String toAddress = "pavolhodas4@gmail.com";
+        String fromAddress = "pavolhodas4@gmail.com";
+        String senderName = "Quiz";
+        String subject = "Nová pripomienka";
+        String content = "Užívaťeľ: [[name]], má pripomienku ku quiz applikácií:<br><br>"
+                + "[[text]]<br>";
+
+        MimeMessage message = emailSenderService.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", name);
+
+        content = content.replace("[[text]]", text);
+
+        helper.setText(content, true);
+
+        emailSenderService.send(message);
     }
 
 //    @Override

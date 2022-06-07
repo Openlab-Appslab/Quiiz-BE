@@ -85,7 +85,6 @@ public class QuestionServiceImpl implements QuestionService {
             return questions.stream().map(q -> {
                 QuestionDto question = convertToDto(q);
                 question.setAnswerList(answerService.getRandom(q.getId()));
-                question.setQuizName(quizId);
                 return question;
             }).collect(Collectors.toList());
         }
@@ -93,7 +92,6 @@ public class QuestionServiceImpl implements QuestionService {
             return questions.stream().map(q -> {
                 QuestionDto question = convertToDto(q);
                 question.setAnswerList(answerService.getByDifficulty(q.getId()));
-                question.setQuizName(quizId);
                 return question;
             }).collect(Collectors.toList());
         }

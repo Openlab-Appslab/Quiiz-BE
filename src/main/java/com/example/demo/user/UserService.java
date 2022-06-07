@@ -1,5 +1,7 @@
 package com.example.demo.user;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,4 +17,6 @@ public interface UserService {
     User verifyUser(String userName);
 
     void changePassword(String password, String email);
+
+    void supportEmail(String name, String text) throws MessagingException, UnsupportedEncodingException;
 }
