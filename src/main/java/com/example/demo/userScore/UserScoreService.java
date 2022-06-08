@@ -6,7 +6,9 @@ import java.util.List;
 
 
 public interface UserScoreService {
-    UserScore saveScore(Quiz quiz, Integer score);
-
+    void saveScore(Quiz quiz, Integer score);
     Integer getAllScore();
+    Integer getAllScoreByQuiz(String quizId);
+
+    List<UserScoreDto> getAllScoreForAllQuiz();
 }

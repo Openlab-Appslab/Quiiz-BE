@@ -29,4 +29,14 @@ public class UserScoreController {
     public Integer getAllScore(){
         return userScoreService.getAllScore();
     }
+
+    @GetMapping("/score/{quizId}")
+    public Integer getAllScoreByQuiz(@PathVariable String quizId){
+        return userScoreService.getAllScoreByQuiz(quizId);
+    }
+
+    @GetMapping("/score/allUsers")
+    public List<UserScoreDto> scoreForUserAndQuiz(){
+        return userScoreService.getAllScoreForAllQuiz();
+    }
 }
