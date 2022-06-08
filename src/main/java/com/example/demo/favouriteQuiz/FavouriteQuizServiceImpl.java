@@ -35,48 +35,52 @@ public class FavouriteQuizServiceImpl implements FavouriteQuizService {
 
     @Override
     public void favoriteTrue(String quizId) {
-        boolean quizIsAlreadySaved = false;
+        quizRepository.getQuiz(quizId).setFavourite(true);
 
-        List<FavouriteQuiz> favouriteQuizList = favouriteQuizRepository.findFavouriteQuiz(quizId);
-        for(FavouriteQuiz favouriteQuiz1 : favouriteQuizList){
-            if(favouriteQuiz1.getUser() == getCurrentUser()){
-                favouriteQuiz1.setFavourite(true);
-                favouriteQuizRepository.save(favouriteQuiz1);
-                quizIsAlreadySaved = true;
-                break;
-            }
-        }
 
-        if(!quizIsAlreadySaved){
-            FavouriteQuiz favouriteQuiz = new FavouriteQuiz();
-            favouriteQuiz.setQuiz(quizRepository.getQuiz(quizId));
-            favouriteQuiz.setUser(getCurrentUser());
-            favouriteQuiz.setFavourite(true);
-            favouriteQuizRepository.save(favouriteQuiz);
-        }
+//        boolean quizIsAlreadySaved = false;
+//
+//        List<FavouriteQuiz> favouriteQuizList = favouriteQuizRepository.findFavouriteQuiz(quizId);
+//        for(FavouriteQuiz favouriteQuiz1 : favouriteQuizList){
+//            if(favouriteQuiz1.getUser() == getCurrentUser()){
+//                favouriteQuiz1.setFavourite(true);
+//                favouriteQuizRepository.save(favouriteQuiz1);
+//                quizIsAlreadySaved = true;
+//                break;
+//            }
+//        }
+//
+//        if(!quizIsAlreadySaved){
+//            FavouriteQuiz favouriteQuiz = new FavouriteQuiz();
+//            favouriteQuiz.setQuiz(quizRepository.getQuiz(quizId));
+//            favouriteQuiz.setUser(getCurrentUser());
+//            favouriteQuiz.setFavourite(true);
+//            favouriteQuizRepository.save(favouriteQuiz);
+//        }
     }
 
     @Override
     public void favoriteFalse(String quizId) {
-        boolean quizIsAlreadySaved = false;
+        //boolean quizIsAlreadySaved = false;
 
-            List<FavouriteQuiz> favouriteQuizList = favouriteQuizRepository.findFavouriteQuiz(quizId);
-            for(FavouriteQuiz favouriteQuiz1 : favouriteQuizList){
-                if(favouriteQuiz1.getUser() == getCurrentUser()){
-                    favouriteQuiz1.setFavourite(false);
-                    favouriteQuizRepository.save(favouriteQuiz1);
-                    quizIsAlreadySaved = true;
-                    break;
-                }
-            }
-
-        if(!quizIsAlreadySaved){
-            FavouriteQuiz favouriteQuiz = new FavouriteQuiz();
-            favouriteQuiz.setQuiz(quizRepository.getQuiz(quizId));
-            favouriteQuiz.setUser(getCurrentUser());
-            favouriteQuiz.setFavourite(false);
-            favouriteQuizRepository.save(favouriteQuiz);
-        }
+        quizRepository.getQuiz(quizId).setFavourite(false);
+//            List<FavouriteQuiz> favouriteQuizList = favouriteQuizRepository.findFavouriteQuiz(quizId);
+//            for(FavouriteQuiz favouriteQuiz1 : favouriteQuizList){
+//                if(favouriteQuiz1.getUser() == getCurrentUser()){
+//                    favouriteQuiz1.setFavourite(false);
+//                    favouriteQuizRepository.save(favouriteQuiz1);
+//                    quizIsAlreadySaved = true;
+//                    break;
+//                }
+//            }
+//
+//        if(!quizIsAlreadySaved){
+//            FavouriteQuiz favouriteQuiz = new FavouriteQuiz();
+//            favouriteQuiz.setQuiz(quizRepository.getQuiz(quizId));
+//            favouriteQuiz.setUser(getCurrentUser());
+//            favouriteQuiz.setFavourite(false);
+//            favouriteQuizRepository.save(favouriteQuiz);
+//        }
     }
 
     @Override
