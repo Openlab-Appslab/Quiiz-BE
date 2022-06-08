@@ -11,4 +11,6 @@ public interface UserScoreService {
     Integer getAllScoreByQuiz(String quizId);
 
     List<UserScoreDto> getAllScoreForAllQuiz();
+
+    List<AllScoreDto> getAllScoreForAllUser();
 }

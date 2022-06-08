@@ -36,7 +36,7 @@ public class FavouriteQuizServiceImpl implements FavouriteQuizService {
     @Override
     public void favoriteTrue(String quizId) {
         quizRepository.getQuiz(quizId).setFavourite(true);
-
+        quizRepository.save(quizRepository.getQuiz(quizId));
 
 //        boolean quizIsAlreadySaved = false;
 //
@@ -64,6 +64,8 @@ public class FavouriteQuizServiceImpl implements FavouriteQuizService {
         //boolean quizIsAlreadySaved = false;
 
         quizRepository.getQuiz(quizId).setFavourite(false);
+        quizRepository.save(quizRepository.getQuiz(quizId));
+
 //            List<FavouriteQuiz> favouriteQuizList = favouriteQuizRepository.findFavouriteQuiz(quizId);
 //            for(FavouriteQuiz favouriteQuiz1 : favouriteQuizList){
 //                if(favouriteQuiz1.getUser() == getCurrentUser()){

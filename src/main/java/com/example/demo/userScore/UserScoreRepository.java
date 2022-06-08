@@ -1,7 +1,5 @@
 package com.example.demo.userScore;
 
-import com.example.demo.answer.Answer;
-import com.example.demo.favouriteQuiz.FavouriteQuiz;
 import com.example.demo.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +21,8 @@ public interface UserScoreRepository extends JpaRepository<UserScore, Long> {
     @Query("SELECT u.quiz.name FROM UserScore u")
     Set<String> getAllName();
 
+    @Query("SELECT u.user FROM UserScore u")
+    Set<User> getAllUsers();
 
     @Query("SELECT u FROM UserScore u WHERE u.quiz.name = :quizId")
     List<UserScore> findFavouriteQuiz(@Param("quizId") String quizId);

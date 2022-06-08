@@ -1,9 +1,6 @@
 package com.example.demo.userScore;
 
 import com.example.demo.Quiz.Quiz;
-import com.example.demo.Quiz.QuizDto;
-import com.example.demo.favouriteQuiz.FavouriteQuiz;
-import com.example.demo.score.ScoreDto;
 import com.example.demo.user.User;
 import com.example.demo.user.UserService;
 import org.modelmapper.ModelMapper;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -86,6 +82,20 @@ public class UserScoreServiceImp implements UserScoreService {
         return userScores.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    @Override
+    public List<AllScoreDto> getAllScoreForAllUser() {
+        List<AllScoreDto> allScoreDtos = new ArrayList<>();
+        Set<User> users = userScoreRepository.getAllUsers();
+
+        for(User user : users){
+            AllScoreDto allScoreDto = new AllScoreDto();
+            allScoreDto.score = userScoreRepository.getScoreForUser(user.getId()).stream().reduce(0, Integer::sum);
+            allScoreDto.userName = user.getUsername();
+            allScoreDtos.add(allScoreDto);
+        }
+        return allScoreDtos;
+    }
+
     private User getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
@@ -101,6 +111,13 @@ public class UserScoreServiceImp implements UserScoreService {
         userScoreDto.setUserName(userScore.getUser().getUsername());
         userScoreDto.setScore(userScore.getScore());
         userScoreDto.setQuizName(userScore.getQuiz().getName());
+        return userScoreDto;
+    }
+
+    private AllScoreDto convertToAllScoreDto(UserScore userScore){
+        AllScoreDto userScoreDto = modelMapper.map(userScore, AllScoreDto.class);
+        userScoreDto.setUserName(userScore.getUser().getUsername());
+        userScoreDto.setScore(userScore.getScore());
         return userScoreDto;
     }
 }
