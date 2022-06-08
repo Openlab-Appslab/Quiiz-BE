@@ -13,4 +13,6 @@ public interface UserScoreService {
     List<UserScoreDto> getAllScoreForAllQuiz();
 
     List<AllScoreDto> getAllScoreForAllUser();
+
+    List<UserScoreDto> getScoreForUser();
 }

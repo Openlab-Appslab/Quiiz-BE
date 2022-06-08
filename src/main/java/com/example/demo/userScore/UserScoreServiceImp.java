@@ -96,6 +96,11 @@ public class UserScoreServiceImp implements UserScoreService {
         return allScoreDtos;
     }
 
+    @Override
+    public List<UserScoreDto> getScoreForUser() {
+        return userScoreRepository.getUserScoreByUserId(getCurrentUser().getId()).stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
     private User getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()

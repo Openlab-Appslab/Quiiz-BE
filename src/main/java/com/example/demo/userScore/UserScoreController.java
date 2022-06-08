@@ -36,6 +36,11 @@ public class UserScoreController {
         return userScoreService.getAllScoreByQuiz(quizId);
     }
 
+    @GetMapping("/score/user")
+    public List<UserScoreDto> getScoreForUser(){
+        return userScoreService.getScoreForUser();
+    }
+
     //GET scores for all users for quiz
     @GetMapping("/score/allUsers")
     public List<UserScoreDto> scoreForUserAndQuiz(){
