@@ -19,4 +19,6 @@ public interface UserScoreService {
     Integer getScoreForCurrentQuiz(String quizId, Integer score);
 
     void resetCurrentScore(String quizId);
+
+    Integer getCurrentScore(String quizId);
 }

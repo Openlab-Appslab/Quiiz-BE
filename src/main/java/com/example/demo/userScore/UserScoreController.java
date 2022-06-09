@@ -61,8 +61,8 @@ public class UserScoreController {
 //    }
 
     @GetMapping("/current/score/{quizId}")
-    public void resetCurrentScore(@PathVariable String quizId){
-        userScoreService.resetCurrentScore(quizId);
+    public Integer resetCurrentScore(@PathVariable String quizId){
+        return userScoreService.getCurrentScore(quizId);
     }
 
 }

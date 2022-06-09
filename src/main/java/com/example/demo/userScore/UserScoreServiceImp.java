@@ -108,7 +108,7 @@ public class UserScoreServiceImp implements UserScoreService {
 
         for(UserScore userScore : userScores){
             if(userScore.getUser().getId() == getCurrentUser().getId()){
-                userScore.setCurrentScore(userScore.getScore() + score);
+                userScore.setCurrentScore(userScore.getCurrentScore() + score);
                 newScore = userScore.getCurrentScore();
                 userScoreRepository.save(userScore);
             }
@@ -129,6 +129,19 @@ public class UserScoreServiceImp implements UserScoreService {
 
     }
 
+    @Override
+    public Integer getCurrentScore(String quizId) {
+        int currentScore = 0;
+        List<UserScore> userScores = userScoreRepository.getScoreForUserByQuiz(quizId);
+
+        for(UserScore userScore : userScores){
+            if(userScore.getUser().getId() == getCurrentUser().getId()){
+                currentScore = userScore.getCurrentScore();
+            }
+        }
+        return currentScore;
+    }
+
     private User getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
@@ -147,10 +160,10 @@ public class UserScoreServiceImp implements UserScoreService {
         return userScoreDto;
     }
 
-    private AllScoreDto convertToAllScoreDto(UserScore userScore){
-        AllScoreDto userScoreDto = modelMapper.map(userScore, AllScoreDto.class);
+    private CurrentQuizScoreDto convertToAllScoreDto(UserScore userScore){
+        CurrentQuizScoreDto userScoreDto = modelMapper.map(userScore, CurrentQuizScoreDto.class);
         userScoreDto.setUserName(userScore.getUser().getUsername());
-        userScoreDto.setScore(userScore.getScore());
+        userScoreDto.setCurrentScore(userScore.getCurrentScore());
         return userScoreDto;
     }
 }

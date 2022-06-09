@@ -6,5 +6,8 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
 public class CurrentQuizScoreDto {
-    
+
+    int currentScore;
+    String quizName;
+    String userName;
 }
