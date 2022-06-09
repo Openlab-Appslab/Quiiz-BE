@@ -3,6 +3,7 @@ package com.example.demo.Quiz;
 import com.example.demo.Question.Model.QuestionService;
 import com.example.demo.Question.QuestionDto;
 import com.example.demo.Quiz.Model.QuizService;
+import com.example.demo.userScore.UserScoreService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +21,14 @@ public class QuizController {
 
     ModelMapper modelMapper;
 
+    UserScoreService userScoreService;
+
     @Autowired
-    private QuizController(QuizService quizService, ModelMapper modelMapper, QuestionService questionService){
+    public QuizController(QuizService quizService, QuestionService questionService, ModelMapper modelMapper, UserScoreService userScoreService) {
         this.quizService = quizService;
-        this.modelMapper = modelMapper;
         this.questionService = questionService;
+        this.modelMapper = modelMapper;
+        this.userScoreService = userScoreService;
     }
 
     @PostMapping("/saveQuiz")
@@ -53,6 +57,7 @@ public class QuizController {
     @GetMapping("/quiz/{quizId}")
     @ResponseBody
     public List<QuestionDto> getQuestionForQuiz(@PathVariable String quizId){
+        userScoreService.resetCurrentScore(quizId);
         return questionService.getRandomQuestionsForQuiz(quizId);
     }
 

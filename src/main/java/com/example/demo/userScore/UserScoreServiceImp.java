@@ -101,6 +101,34 @@ public class UserScoreServiceImp implements UserScoreService {
         return userScoreRepository.getUserScoreByUserId(getCurrentUser().getId()).stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    @Override
+    public Integer getScoreForCurrentQuiz(String quizId, Integer score) {
+        int newScore = 0;
+        List<UserScore> userScores = userScoreRepository.getScoreForUserByQuiz(quizId);
+
+        for(UserScore userScore : userScores){
+            if(userScore.getUser().getId() == getCurrentUser().getId()){
+                userScore.setCurrentScore(userScore.getScore() + score);
+                newScore = userScore.getCurrentScore();
+                userScoreRepository.save(userScore);
+            }
+        }
+        return newScore;
+    }
+
+    @Override
+    public void resetCurrentScore(String quizId) {
+        List<UserScore> userScores = userScoreRepository.getScoreForUserByQuiz(quizId);
+
+        for(UserScore userScore : userScores){
+            if(userScore.getUser().getId() == getCurrentUser().getId()){
+                userScore.setCurrentScore(0);
+                userScoreRepository.save(userScore);
+            }
+        }
+
+    }
+
     private User getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()

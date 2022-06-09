@@ -15,4 +15,8 @@ public interface UserScoreService {
     List<AllScoreDto> getAllScoreForAllUser();
 
     List<UserScoreDto> getScoreForUser();
+
+    Integer getScoreForCurrentQuiz(String quizId, Integer score);
+
+    void resetCurrentScore(String quizId);
 }

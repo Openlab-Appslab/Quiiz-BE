@@ -22,6 +22,7 @@ public class UserScoreController {
     @PostMapping(value = "/score/{quiz}/{score}")
     public void addUser(@PathVariable Quiz quiz, @PathVariable Integer score){
         userScoreService.saveScore(quiz, score);
+        userScoreService.getScoreForCurrentQuiz(quiz.getName(), score);
     }
 
     //GET all scores for current user
@@ -52,4 +53,16 @@ public class UserScoreController {
     public List<AllScoreDto> getScoreForAllUser(){
         return userScoreService.getAllScoreForAllUser();
     }
+
+//    //GET all score for all users
+//    @GetMapping("/score/current/quiz/{quizId}")
+//    public Integer getScoreForCurrentQuiz(@PathVariable String quizId){
+//        return userScoreService.getScoreForCurrentQuiz(quizId);
+//    }
+
+    @GetMapping("/current/score/{quizId}")
+    public void resetCurrentScore(@PathVariable String quizId){
+        userScoreService.resetCurrentScore(quizId);
+    }
+
 }

@@ -16,6 +16,7 @@ public class UserScore {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     int score;
+    int currentScore;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     User user;

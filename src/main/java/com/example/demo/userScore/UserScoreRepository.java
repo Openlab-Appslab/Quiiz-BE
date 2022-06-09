@@ -31,7 +31,6 @@ public interface UserScoreRepository extends JpaRepository<UserScore, Long> {
     @Query("SELECT u FROM UserScore u WHERE u.quiz.name = :quizId")
     List<UserScore> findFavouriteQuiz(@Param("quizId") String quizId);
 
-
     @Query("SELECT u.score FROM UserScore u WHERE u.user.id = :id")
     UserScore findUser(@Param("id") String id);
 }
