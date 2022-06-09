@@ -18,5 +18,7 @@ public interface UserService {
 
     void changePassword(String password, String email);
 
+    void resendEmail(String email) throws MessagingException, UnsupportedEncodingException;
+
     void supportEmail(String name, String text) throws MessagingException, UnsupportedEncodingException;
 }

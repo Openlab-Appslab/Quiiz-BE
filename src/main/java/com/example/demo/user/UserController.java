@@ -73,30 +73,7 @@ public class UserController {
 
     @GetMapping("/resend/email/{email}")
     public void resendEmail(@PathVariable String email) throws MessagingException, UnsupportedEncodingException {
-        String toAddress = email;
-        String fromAddress = "pavolhodas4@gmail.com";
-        String senderName = "Quiz";
-        String subject = "Potvrdte registraciu";
-        String content = "Prosím potvrďte registráciu:<br>"
-                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
-                + "Ďakujeme,<br>"
-                + "Guiz.";
-
-        MimeMessage message = emailSenderService.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-
-        helper.setFrom(fromAddress, senderName);
-        helper.setTo(toAddress);
-        helper.setSubject(subject);
-
-
-        String verifyURL = "http://localhost:4200" + "/verify";
-
-        content = content.replace("[[URL]]", verifyURL);
-
-        helper.setText(content, true);
-
-        emailSenderService.send(message);
+        userService.resendEmail(email);
     }
 
     @GetMapping("/support/{name}/{text}")
