@@ -54,12 +54,6 @@ public class UserScoreController {
         return userScoreService.getAllScoreForAllUser();
     }
 
-//    //GET all score for all users
-//    @GetMapping("/score/current/quiz/{quizId}")
-//    public Integer getScoreForCurrentQuiz(@PathVariable String quizId){
-//        return userScoreService.getScoreForCurrentQuiz(quizId);
-//    }
-
     @GetMapping("/current/score/{quizId}")
     public Integer resetCurrentScore(@PathVariable String quizId){
         return userScoreService.getCurrentScore(quizId);
